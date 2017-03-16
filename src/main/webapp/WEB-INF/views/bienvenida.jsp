@@ -9,10 +9,9 @@
 <title>Bienvenida</title>
 </head>
 <body>
-	<u>Bienvenido:</u>
-	<ol>
-	${persona.nombre} ${persona.apellido}
-	</ol>
+	<div>Nombre: ${persona.nombre}<br>
+	Apellido: ${persona.apellido}</div>
+	
 	<br>
 	<b>Test lista-personas</b>
 	<br>
