@@ -47,7 +47,8 @@
 							<form:input path="apellido" placeholder="Ingrese su apellido." />
 							<br>
 							<br>
-							<button type="submit" class="btn btn-lg btn-success" value = "Submit">Enviar</button>
+							<button type="submit" class="btn btn-lg btn-success"
+								value="Submit">Enviar</button>
 						</form:form>
 					</div>
 				</div>
