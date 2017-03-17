@@ -6,7 +6,12 @@ public class Ingrediente {
     private Double precio;
     private TipoIngrediente tipo;
     
-    public String getNombre() {
+    public Ingrediente(String nombre, Double precio, TipoIngrediente tipo) {	//Lo añadi para facilitar la creacion de un ingrediente, asi evito usar demasiados getters y setters
+		this.nombre = nombre;
+		this.precio = precio;
+		this.tipo = tipo;
+	}
+	public String getNombre() {
         return nombre;
     }
     public void setNombre(String nombre) {

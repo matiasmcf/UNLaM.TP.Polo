@@ -18,7 +18,7 @@ public class Sanguchetto {
 	 * Elimina todos los ingredientes del sanguchetto.<br>
 	 */
 	public void vaciar(){
-		// Implementar
+		ingredientes=new LinkedList<Ingrediente>();
 	}
 	
 	/**
@@ -26,7 +26,7 @@ public class Sanguchetto {
 	 * @param ingrediente
 	 */
 	public void agregarIngrediente(Ingrediente ingrediente){
-		// Implementar
+		ingredientes.add(ingrediente);
 	}
 	
 	/**
@@ -34,8 +34,13 @@ public class Sanguchetto {
 	 * @return
 	 */
 	public List<Ingrediente> verIngredientes(){
-		// Implementar
-		return null;
+		List<Ingrediente> ingredientesSinCondimentos=new LinkedList<Ingrediente>();
+		for (Ingrediente ingrediente : ingredientes) {
+			if(ingrediente.getTipo().equals(TipoIngrediente.INGREDIENTE)){
+				ingredientesSinCondimentos.add(ingrediente);
+			}
+		}
+		return ingredientesSinCondimentos;
 	}
 	
 	/**
@@ -43,16 +48,24 @@ public class Sanguchetto {
      * @return
      */
     public List<Ingrediente> verCondimentos(){
-        // Implementar
-        return null;
-    }
+		List<Ingrediente> condimentos=new LinkedList<Ingrediente>();
+		for (Ingrediente ingrediente : ingredientes) {
+			if(ingrediente.getTipo().equals(TipoIngrediente.CONDIMENTO)){
+				condimentos.add(ingrediente);
+			}
+		}
+		return condimentos;
+	}
 	
 	/**
 	 * Devuelve el precio total del sanguchetto.<br>
 	 * @return
 	 */
 	public Double getPrecio(){
-		// Implementar
-		return null;
+		Double precio=0.;
+		for (Ingrediente ingrediente : ingredientes) {
+			precio+=ingrediente.getPrecio();
+		}
+		return precio;
 	}
 }

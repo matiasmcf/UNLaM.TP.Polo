@@ -37,18 +37,21 @@
 						<h3 class="panel-title">Ingrese sus datos</h3>
 					</div>
 					<div class="panel-body">
-						<form:form type="post" action="bienvenida"
+						<form:form type="post" action="prepara-tu-sanguche"
 							modelAttribute="persona">
-							<label>Nombre:</label>
+							<br>
+							<br>
+							<label>Nombre: </label>
 							<form:input path="nombre" placeholder="Ingrese su nombre." />
 							<br>
 							<br>
-							<label>Apellido:</label>
+							<label>Apellido: </label>
 							<form:input path="apellido" placeholder="Ingrese su apellido." />
 							<br>
 							<br>
-							<button type="submit" class="btn btn-lg btn-success"
-								value="Submit">Enviar</button>
+							<br>
+							<br>
+							<button type="submit" class="btn btn btn-success" value="Submit">Ingresar</button>
 						</form:form>
 					</div>
 				</div>
