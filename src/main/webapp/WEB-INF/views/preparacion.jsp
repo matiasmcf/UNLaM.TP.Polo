@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Bienvenido ${persona.nombre} ${persona.apellido}
+	Bienvenido ${username}
 			<c:forEach var="ingrediente" items="${ingredientes}">
 			<li>Nombre: ${ingrediente.getNombre()}</li>
 		</c:forEach>

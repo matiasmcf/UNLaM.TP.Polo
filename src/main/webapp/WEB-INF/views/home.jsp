@@ -37,16 +37,16 @@
 						<h3 class="panel-title">Ingrese sus datos</h3>
 					</div>
 					<div class="panel-body">
-						<form:form type="post" action="prepara-tu-sanguche"
-							modelAttribute="persona">
+						<form:form type="post" action="redireccionar"
+							modelAttribute="user">
 							<br>
 							<br>
-							<label>Nombre: </label>
-							<form:input path="nombre" placeholder="Ingrese su nombre." />
+							<label>Usuario:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+							<form:input path="username" placeholder="Ingrese su usuario." />
 							<br>
 							<br>
-							<label>Apellido: </label>
-							<form:input path="apellido" placeholder="Ingrese su apellido." />
+							<label>Password:&nbsp;</label>
+							<form:password path="password" placeholder="Ingrese su password." />
 							<br>
 							<br>
 							<br>
