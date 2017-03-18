@@ -1,0 +1,2 @@
+1_¿ como obtener una lista de un form? en nuestro caso podriamos usar checkbox
+2_¿ como modificar bootstrap, para personalizar su contenido?
