@@ -16,8 +16,6 @@
 </head>
 <body role="document">
 	<div class="container theme-showcase" role="main">
-
-		<!-- Main jumbotron for a primary marketing message or call to action -->
 		<div class="page-header">
 			<h3>
 				Bienvenido a Sanguchetto ${username} ! <br> <br> <small>Elija

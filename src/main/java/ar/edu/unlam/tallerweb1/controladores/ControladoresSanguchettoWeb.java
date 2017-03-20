@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Ingrediente;
 import ar.edu.unlam.tallerweb1.modelo.User;
+import sun.security.jca.GetInstance;
 import ar.edu.unlam.tallerweb1.modelo.Stock;
 import ar.edu.unlam.tallerweb1.modelo.TipoIngrediente;
 
@@ -49,12 +50,7 @@ public class ControladoresSanguchettoWeb {
 		Set<Ingrediente> ingredientes = new HashSet<Ingrediente>();		//separo condimentos de ingredientes
 		Set<Ingrediente> condimentos = new HashSet<Ingrediente>();
 		Set<Ingrediente> listaMezclada= stock.listarIngredientesDisponibles();
-		for (Ingrediente ingrediente : listaMezclada) {
-			if(ingrediente.getTipo().equals(TipoIngrediente.INGREDIENTE))
-				ingredientes.add(ingrediente);
-			else
-				condimentos.add(ingrediente);
-		}
+		dividirIngredientes(ingredientes,condimentos,listaMezclada);
 		modelo.put("ingredientes",ingredientes);
 		modelo.put("condimentos",condimentos);
 		return new ModelAndView("preparacion", modelo);
@@ -62,7 +58,23 @@ public class ControladoresSanguchettoWeb {
 	@RequestMapping(value = "/gestion-sitio",method = RequestMethod.GET)
 	public ModelAndView redireccionar(@RequestParam(value="username")String username) {
 		ModelMap modelo = new ModelMap();
+		Stock stock=Stock.getInstance();
+		Set<Ingrediente> ingredientes = new HashSet<Ingrediente>();		//separo condimentos de ingredientes
+		Set<Ingrediente> condimentos = new HashSet<Ingrediente>();
+		Set<Ingrediente> listaMezclada= stock.listarIngredientesDisponibles();
+		dividirIngredientes(ingredientes,condimentos,listaMezclada);
+		modelo.put("ingredientes",ingredientes);
+		modelo.put("condimentos",condimentos);
 		modelo.put("username",username);
 		return new ModelAndView("gestion",modelo);
+	}
+	
+	private static void dividirIngredientes(Set<Ingrediente> ingredientes,Set<Ingrediente> condimentos,Set<Ingrediente> listaMezclada){
+		for (Ingrediente ingrediente : listaMezclada) {
+			if(ingrediente.getTipo().equals(TipoIngrediente.INGREDIENTE))
+				ingredientes.add(ingrediente);
+			else
+				condimentos.add(ingrediente);
+		}
 	}
 }
