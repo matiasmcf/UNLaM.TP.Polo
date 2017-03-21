@@ -26,7 +26,11 @@ public class Sanguchetto {
 	 * @param ingrediente
 	 */
 	public void agregarIngrediente(Ingrediente ingrediente){
-		ingredientes.add(ingrediente);
+		Stock stock= Stock.getInstance();
+		if(stock.comprarIngrediente(ingrediente,1)){
+			ingredientes.add(ingrediente);
+		}
+		
 	}
 	
 	/**

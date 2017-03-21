@@ -32,8 +32,9 @@
 							<tbody>
 								<c:forEach var="ingrediente" items="${ingredientes}">
 									<tr>
-										<td>${ingrediente.getNombre()}</td>
-										<td>$&nbsp;${ingrediente.getPrecio()}</td>
+										<td>${ingrediente.nombre}</td>
+										<td>$&nbsp;${ingrediente.precio}</td>
+										<td>${stock.obtenerStock().get(ingrediente)}</td>
 										<td><input /></td>
 										<td><button type="submit" class="btn btn btn-success"
 												value="Submit">Comprar stock</button></td>
