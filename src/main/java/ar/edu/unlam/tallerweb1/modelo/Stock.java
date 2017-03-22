@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -29,6 +30,14 @@ public class Stock {
 	 * @return 
 	 */
 	public Set<Ingrediente> listarIngredientesDisponibles(){
+		HashSet<Ingrediente> ingredientesDisponibles = new HashSet<Ingrediente>();
+		for (Ingrediente ingrediente : stock.keySet())
+			if(!stock.get(ingrediente).equals(0))
+				ingredientesDisponibles.add(ingrediente);
+		return ingredientesDisponibles;
+	}
+	
+	public Set<Ingrediente> listarIngredientes(){
 		return stock.keySet();
 	}
 	

@@ -17,11 +17,25 @@
 <body>
 	<div class="container theme-showcase">
 		<div class="page-header">
-			<h3>
-				Bienvenido a Sanguchetto ${username} ! <br> <br> <small>Elija
-					sus condimentos e ingredientes preferidos y pruebe el sandwitch
-					perfecto para usted. </small>
-			</h3>
+			<div class="row">
+				<div class="col-md-11">
+					<h3>Bienvenido a Sanguchetto ${username} !</h3>
+				</div>
+				<div class="col-md-1">
+					<form:form action="/sitio-polo">
+						<br>
+						<button type="submit" class="btn btn-xs btn-warning">Salir</button>
+					</form:form>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<h3>
+						<small>Elija sus condimentos e ingredientes preferidos y
+							pruebe el sandwitch perfecto para usted. </small>
+					</h3>
+				</div>
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-6">
@@ -33,7 +47,8 @@
 						<table class="table table-striped">
 							<tbody>
 								<c:forEach var="ingrediente" items="${ingredientes}">
-									<form:form modelAttribute="agregarIng" method="POST">
+									<form:form action="prepara-tu-sanguche/agregar"
+										modelAttribute="agregarIng" method="POST">
 										<tr>
 											<td>${ingrediente.getNombre()}</td>
 											<td>$&nbsp;${ingrediente.getPrecio()}</td>
@@ -43,8 +58,8 @@
 													value="${ingrediente.tipo}" readonly="true" /></td>
 											<td><form:input type="hidden" path="precio"
 													value="${ingrediente.precio}" readonly="true" /></td>
-											<td>
-												<button type="submit" class="btn btn btn-success">Añadir
+											<td align="RIGHT">
+												<button type="submit" class="btn btn btn-success">+
 												</button>
 											</td>
 										</tr>
@@ -64,7 +79,8 @@
 						<table class="table table-striped">
 							<tbody>
 								<c:forEach var="condimento" items="${condimentos}">
-									<form:form modelAttribute="agregarIng" method="POST">
+									<form:form action="prepara-tu-sanguche/agregar"
+										modelAttribute="agregarIng" method="POST">
 										<tr>
 											<td>${condimento.getNombre()}</td>
 											<td>$&nbsp;${condimento.getPrecio()}</td>
@@ -74,10 +90,9 @@
 													value="${condimento.tipo}" readonly="true" /></td>
 											<td><form:input type="hidden" path="precio"
 													value="${condimento.precio}" readonly="true" /></td>
-											<td>
-											<td>
+											<td align="RIGHT">
 												<button type="submit" class="btn btn btn-success"
-													value="Submit">Añadir</button>
+													value="Submit">+</button>
 											</td>
 										</tr>
 									</form:form>
@@ -102,7 +117,8 @@
 								</tr>
 								<c:forEach var="ingrediente"
 									items="${sanguche.verIngredientes()}">
-									<form:form modelAttribute="quitarIng" method="POST">
+									<form:form action="prepara-tu-sanguche/quitar"
+										modelAttribute="quitarIng" method="POST">
 										<tr>
 											<td>${ingrediente.getNombre()}</td>
 											<td>$&nbsp;${ingrediente.getPrecio()}</td>
@@ -112,8 +128,8 @@
 													value="${ingrediente.tipo}" /></td>
 											<td><form:input type="hidden" path="precio"
 													value="${ingrediente.precio}" /></td>
-											<td>
-												<button type="submit" class="btn btn btn-danger">Quitar
+											<td align="RIGHT">
+												<button type="submit" class="btn btn btn-danger">-
 												</button>
 											</td>
 										</tr>
@@ -123,7 +139,8 @@
 									<td><h4>Condimentos:</h4></td>
 								</tr>
 								<c:forEach var="condimento" items="${sanguche.verCondimentos()}">
-									<form:form modelAttribute="quitarIng" method="POST">
+									<form:form action="prepara-tu-sanguche/quitar"
+										modelAttribute="quitarIng" method="POST">
 										<tr>
 											<td>${condimento.getNombre()}</td>
 											<td>$&nbsp;${condimento.getPrecio()}</td>
@@ -133,8 +150,8 @@
 													value="${condimento.tipo}" /></td>
 											<td><form:input type="hidden" path="precio"
 													value="${condimento.precio}" /></td>
-											<td>
-												<button type="submit" class="btn btn btn-danger">Quitar
+											<td align="RIGHT">
+												<button type="submit" class="btn btn btn-danger">-
 												</button>
 											</td>
 										</tr>
@@ -145,7 +162,26 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6"> Total: ${sanguche.getPrecio()}
+			<div align="RIGHT">
+				<div class="col-md-6">
+					<h2>
+						<span class="label label-default">Total:
+							$&nbsp;${sanguche.getPrecio()}</span>
+					</h2>
+					<br> <br> <br> <br> <br> <br> <br>
+					<table>
+						<tbody>
+							<tr>
+								<td><form:form action="compra-realizada">
+										<button type="submit" class="btn btn-lg btn-success">Comprar</button>
+									</form:form></td>
+								<td><form:form action="prepara-tu-sanguche/cancelar">
+										&nbsp;&nbsp;<button type="submit" class="btn btn-lg btn-danger">Cancelar</button>
+									</form:form></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>

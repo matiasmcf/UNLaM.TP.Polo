@@ -18,7 +18,9 @@ public class Sanguchetto {
 	 * Elimina todos los ingredientes del sanguchetto.<br>
 	 */
 	public void vaciar(){
-		ingredientes=new LinkedList<Ingrediente>();
+		for (Ingrediente ingrediente : ingredientes)
+			Stock.getInstance().agregarStock(ingrediente,1);
+		this.ingredientes.removeAll(ingredientes);
 	}
 	
 	/**
@@ -31,6 +33,11 @@ public class Sanguchetto {
 			ingredientes.add(ingrediente);
 		}
 		
+	}
+	public void quitarIngrediente(Ingrediente ingrediente){
+		Stock stock= Stock.getInstance();
+		ingredientes.remove(ingrediente);
+		stock.agregarStock(ingrediente,1);
 	}
 	
 	/**
@@ -71,5 +78,9 @@ public class Sanguchetto {
 			precio+=ingrediente.getPrecio();
 		}
 		return precio;
+	}
+
+	public void comprar() {
+		this.ingredientes.removeAll(ingredientes);
 	}
 }
