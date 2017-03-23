@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Ingrediente;
+import ar.edu.unlam.tallerweb1.modelo.ObjetoCompra;
 import ar.edu.unlam.tallerweb1.modelo.Sanguchetto;
 import ar.edu.unlam.tallerweb1.modelo.User;
 import ar.edu.unlam.tallerweb1.modelo.Stock;
@@ -98,9 +99,45 @@ public class ControladoresSanguchettoWeb {
 		modelo.put("condimentos", condimentos);
 		modelo.put("stock",stock);
 		modelo.put("username", usuario.getUsername());
+		modelo.put("objetoCompra",new ObjetoCompra());
+		modelo.put("ingredienteEliminar",new Ingrediente());
 		return new ModelAndView("gestion", modelo);
 	}
-
+	
+	@RequestMapping(value = "/gestion-sitio/eliminar-ingrediente")
+	public ModelAndView agregarStock(@ModelAttribute(value="ingredienteEliminar")Ingrediente ingrediente){
+		Stock.getInstance().eliminarIngrediente(ingrediente);
+		return new ModelAndView("redirect:/gestion-sitio");
+	}
+	@RequestMapping(value = "/gestion-sitio/comprar")
+	public ModelAndView agregarStock(@ModelAttribute(value="objetoCompra")ObjetoCompra compra){
+		Stock.getInstance().agregarStock(new Ingrediente(compra.getNombre()),compra.getCantidad());
+		return new ModelAndView("redirect:/gestion-sitio");
+	}
+	@RequestMapping(value = "/condimento-nuevo")
+	public ModelAndView condimentoNuevo(){
+		ModelMap modelo= new ModelMap();
+		modelo.put("condimento", new Ingrediente());
+		return new ModelAndView("agregarCondimento",modelo);
+	}
+	@RequestMapping(value = "/condimento-nuevo/datos")
+	public ModelAndView condimentoNuevoDatos(@ModelAttribute(value="condimento")Ingrediente condimento){
+		condimento.setTipo(TipoIngrediente.CONDIMENTO);
+		Stock.getInstance().agregarIngrediente(condimento);
+		return new ModelAndView("redirect:/gestion-sitio");
+	}
+	@RequestMapping(value = "/ingrediente-nuevo")
+	public ModelAndView ingredienteNuevo(){
+		ModelMap modelo= new ModelMap();
+		modelo.put("ingrediente", new Ingrediente());
+		return new ModelAndView("agregarIngrediente",modelo);
+	}
+	@RequestMapping(value = "/ingrediente-nuevo/datos")
+	public ModelAndView ingredienteNuevoDatos(@ModelAttribute(value="ingrediente")Ingrediente ingrediente){
+		ingrediente.setTipo(TipoIngrediente.INGREDIENTE);
+		Stock.getInstance().agregarIngrediente(ingrediente);
+		return new ModelAndView("redirect:/gestion-sitio");
+	}
 	private static void dividirIngredientes(Set<Ingrediente> ingredientes, Set<Ingrediente> condimentos,
 			Set<Ingrediente> listaMezclada) {
 		for (Ingrediente ingrediente : listaMezclada) {
@@ -120,7 +157,7 @@ public class ControladoresSanguchettoWeb {
 			Ingrediente mostaza = new Ingrediente("mostaza", 0.50, TipoIngrediente.CONDIMENTO);
 			Ingrediente salsaGolf = new Ingrediente("salsa golf", 0.50, TipoIngrediente.CONDIMENTO);
 			Ingrediente papasPays = new Ingrediente("papas pays", 1., TipoIngrediente.CONDIMENTO);
-			Ingrediente salsaBolo = new Ingrediente("salsa boloñesa", 1.50, TipoIngrediente.CONDIMENTO);
+			Ingrediente salsaBolo = new Ingrediente("salsa bolognesa", 1.50, TipoIngrediente.CONDIMENTO);
 			Ingrediente jamon = new Ingrediente("jamon", 5.0, TipoIngrediente.INGREDIENTE);
 			Ingrediente queso = new Ingrediente("queso", 5.0, TipoIngrediente.INGREDIENTE);
 			Ingrediente pollo = new Ingrediente("pollo", 10.0, TipoIngrediente.INGREDIENTE);

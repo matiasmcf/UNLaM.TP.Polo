@@ -13,7 +13,7 @@
 <link href="css/bootstrap-theme.min.css" rel="stylesheet">
 </head>
 <body>
-	<div class="container theme-showcase" role="main">
+	<div class="container theme-showcase">
 		<div class="page-header">
 			<h3>
 				Bienvenido ${username} ! <br> <br> <small>Aqui
@@ -34,20 +34,37 @@
 									<tr>
 										<td>${ingrediente.nombre}</td>
 										<td>$&nbsp;${ingrediente.precio}</td>
-										<td>${stock.obtenerStock().get(ingrediente)}</td>
-										<td><input /></td>
-										<td><button type="submit" class="btn btn btn-success"
-												value="Submit">Comprar stock</button></td>
-										<td><button type="submit" class="btn btn btn-danger"
-												value="Submit">Eliminar producto</button></td>
+										<td align="RIGHT">Stock:
+											${stock.obtenerStock().get(ingrediente)}</td>
+										<form:form action="gestion-sitio/comprar"
+											modelAttribute="objetoCompra" method="POST">
+											<td align="RIGHT">Cantidad:</td>
+											<td><form:input type="hidden" path="nombre"
+													value="${ingrediente.nombre}" /></td>
+											<td align="LEFT"><form:input style="width: 40px;"
+													path="cantidad" /></td>
+											<td align="LEFT"><button type="submit"
+													class="btn btn btn-success" value="Submit">Comprar
+													stock</button></td>
+										</form:form>
+										<form:form action="gestion-sitio/eliminar-ingrediente"
+											modelAttribute="ingredienteEliminar" method="POST">
+											<td><form:input type="hidden" path="nombre"
+													value="${ingrediente.nombre}" /></td>
+											<td align="RIGHT"><button type="submit"
+													class="btn btn btn-danger" value="Submit">Eliminar
+													producto</button></td>
+										</form:form>
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
 					</div>
 				</div>
-				<button type="submit" class="btn btn btn-success" value="Submit">Añadir
-					Ingrediente</button>
+				<form:form action="ingrediente-nuevo">
+					<button type="submit" class="btn btn btn-success" value="Submit">Añadir
+						Ingrediente</button>
+				</form:form>
 			</div>
 		</div>
 		<div class="row">
@@ -64,19 +81,38 @@
 									<tr>
 										<td>${ingrediente.getNombre()}</td>
 										<td>$&nbsp;${ingrediente.getPrecio()}</td>
-										<td><input /></td>
-										<td><button type="submit" class="btn btn btn-success"
-												value="Submit">Comprar stock</button></td>
-										<td><button type="submit" class="btn btn btn-danger"
-												value="Submit">Eliminar producto</button></td>
+										<td align="RIGHT">Stock:
+											${stock.obtenerStock().get(ingrediente)}</td>
+										<form:form action="gestion-sitio/comprar"
+											modelAttribute="objetoCompra" method="POST">
+											<td align="RIGHT">Cantidad:</td>
+											<td><form:input type="hidden" path="nombre"
+													value="${ingrediente.nombre}" /></td>
+											<td align="LEFT"><form:input style="width: 40px;"
+													path="cantidad" /></td>
+											<td align="LEFT"><button type="submit"
+													class="btn btn btn-success" value="Submit">Comprar
+													stock</button></td>
+										</form:form>
+										<form:form action="gestion-sitio/eliminar-ingrediente"
+											modelAttribute="ingredienteEliminar" method="POST">
+											<td><form:input type="hidden" path="nombre"
+													value="${ingrediente.nombre}" /></td>
+											<td align="RIGHT"><button type="submit"
+													class="btn btn btn-danger" value="Submit">Eliminar
+													producto</button></td>
+										</form:form>
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
 					</div>
 				</div>
-				<button type="submit" class="btn btn btn-success" value="Submit">Añadir
-					Condimento</button>
+				<form:form action="condimento-nuevo">
+					<button type="submit" class="btn btn btn-success" value="Submit">Añadir
+						Condimento</button>
+				</form:form>
+				<br>
 			</div>
 		</div>
 	</div>

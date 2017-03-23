@@ -6,25 +6,13 @@ public class Ingrediente {
 	private Double precio;
 	private TipoIngrediente tipo;
 
-	public Ingrediente(String nombre, Double precio, TipoIngrediente tipo) { // Lo
-																				// añadi
-																				// para
-																				// facilitar
-																				// la
-																				// creacion
-																				// de
-																				// un
-																				// ingrediente,
-																				// asi
-																				// evito
-																				// usar
-																				// demasiados
-																				// getters
-																				// y
-																				// setters
+	public Ingrediente(String nombre, Double precio, TipoIngrediente tipo) { 
 		this.nombre = nombre;
 		this.precio = precio;
 		this.tipo = tipo;
+	}
+	public Ingrediente(String nombre) { 
+		this.nombre = nombre;
 	}
 
 	public Ingrediente() {
@@ -59,8 +47,6 @@ public class Ingrediente {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
-		result = prime * result + ((precio == null) ? 0 : precio.hashCode());
-		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
 		return result;
 	}
 
@@ -77,13 +63,6 @@ public class Ingrediente {
 			if (other.nombre != null)
 				return false;
 		} else if (!nombre.equals(other.nombre))
-			return false;
-		if (precio == null) {
-			if (other.precio != null)
-				return false;
-		} else if (!precio.equals(other.precio))
-			return false;
-		if (tipo != other.tipo)
 			return false;
 		return true;
 	}

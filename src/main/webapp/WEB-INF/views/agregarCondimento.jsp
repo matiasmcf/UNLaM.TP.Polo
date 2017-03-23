@@ -11,7 +11,7 @@
 <meta name="author" content="">
 <link rel="icon" href="../../favicon.ico">
 
-<title>Ingreso de datos</title>
+<title>Nuevo Condimento</title>
 
 <!-- Bootstrap core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -22,31 +22,24 @@
 
 <body role="document">
 	<div class="container theme-showcase" role="main">
-
-		<!-- Main jumbotron for a primary marketing message or call to action -->
-		<div align="center" class="jumbotron">
-			<h1>Sanguchetto</h1>
-			<p>Los mejores sanguches del pais</p>
-		</div>
-
 		<div class="row">
 			<div class="col-sm-4"></div>
 			<div class="col-sm-4">
 				<div align="center" class="panel panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">Ingrese sus datos</h3>
+						<h3 class="panel-title">Ingrese datos del condimento</h3>
 					</div>
 					<div class="panel-body">
-						<form:form type="post" action="redireccionar"
-							modelAttribute="user">
+						<form:form type="post" action="condimento-nuevo/datos"
+							modelAttribute="condimento">
 							<br>
 							<br>
-							<label>Usuario:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-							<form:input path="username" placeholder="Ingrese su usuario." />
+							<label>Nombre:&nbsp;</label>
+							<form:input path="nombre" placeholder="Ingrese nombre" />
 							<br>
 							<br>
-							<label>Password:&nbsp;</label>
-							<form:password path="password" placeholder="Ingrese su password." />
+							<label>Precio:&nbsp;</label>
+							<form:input path="precio" placeholder="Ingrese precio" />
 							<br>
 							<br>
 							<br>
