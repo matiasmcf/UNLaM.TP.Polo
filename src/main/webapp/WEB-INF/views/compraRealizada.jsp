@@ -1,6 +1,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -24,14 +24,14 @@
 	<div class="container theme-showcase" role="main" align="CENTER">
 		<br> <br> <br> <br> <br> <br> <br>
 		<h2>
-			<span class="label label-success">${username} !, Gracias por
+			<span class="label label-success">${userName} !, Gracias por
 				comprar en Sanguchetto</span>
 		</h2>
 		<br> <br> <br> <br>
 		<table>
 			<tbody>
 				<tr>
-					<td><form:form action="/sitio-polo/prepara-tu-sanguche">
+					<td><form:form action="/sitio-polo/u/${userName}/prepara-tu-sanguche">
 							<button type="submit" class="btn btn btn-success" value="Submit">Comprar
 								otro producto</button>
 						</form:form></td>

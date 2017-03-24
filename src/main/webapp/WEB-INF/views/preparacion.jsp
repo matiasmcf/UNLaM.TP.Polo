@@ -32,7 +32,7 @@
 				<div class="col-md-12">
 					<h3>
 						<small>Elija sus condimentos e ingredientes preferidos y
-							pruebe el sandwitch perfecto para usted. </small>
+							pruebe el sanguche perfecto para usted. </small>
 					</h3>
 				</div>
 			</div>

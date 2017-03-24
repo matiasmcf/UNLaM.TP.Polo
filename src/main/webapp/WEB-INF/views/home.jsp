@@ -12,7 +12,7 @@
 <link rel="icon" href="../../favicon.ico">
 
 <title>Ingreso de datos</title>
-
+ 
 <!-- Bootstrap core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <!-- Bootstrap theme -->

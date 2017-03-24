@@ -6,46 +6,61 @@ import java.util.Set;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Ingrediente;
 import ar.edu.unlam.tallerweb1.modelo.ObjetoCompra;
+import ar.edu.unlam.tallerweb1.modelo.SQLiteDatabase;
 import ar.edu.unlam.tallerweb1.modelo.Sanguchetto;
-import ar.edu.unlam.tallerweb1.modelo.User;
 import ar.edu.unlam.tallerweb1.modelo.Stock;
 import ar.edu.unlam.tallerweb1.modelo.TipoIngrediente;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.modelo.Usuario.TipoUsuario;
 
 @Controller
 public class ControladoresSanguchettoWeb {
 
-	private User usuario;
-	
-	public ControladoresSanguchettoWeb(){
+	private Usuario usuario;
+
+	public ControladoresSanguchettoWeb() {
 		inicializarStock();
 	}
-	
-	@RequestMapping(path = "/")
+
+	@RequestMapping(
+			path = "/")
 	public ModelAndView irAHome() {
+		System.out.println("INICIANDO");
+		SQLiteDatabase.getInstace().cargarIngredientes();
 		ModelMap modelo = new ModelMap();
-		usuario=null;
-		modelo.put("user", new User());
+		usuario = null;
+		modelo.put("user", new Usuario());
 		return new ModelAndView("home", modelo);
 	}
 
-	@RequestMapping(value = "/redireccionar", method = RequestMethod.POST)
-	public ModelAndView redireccionar(@ModelAttribute("user") User user) {
-		usuario=user;
-		if (user.getUsername().equalsIgnoreCase("admin"))
+	@RequestMapping(
+			value = "/redireccionar",
+			method = RequestMethod.POST)
+	public ModelAndView redireccionar(@ModelAttribute("user") Usuario user) {
+		System.out.println("REDIRECCIONANDO");
+		usuario = user;
+		if (!SQLiteDatabase.getInstace().verificarDatos(user))
+			return new ModelAndView("redirect:/");
+		if (user.getTipo().equals(TipoUsuario.ADMIN))
 			return new ModelAndView("redirect:/gestion-sitio");
-		return new ModelAndView("redirect:/prepara-tu-sanguche");
+		return new ModelAndView("redirect:/u/" + user.getUsername() + "/prepara-tu-sanguche");
 	}
 
-	@RequestMapping(value = "/prepara-tu-sanguche", method ={RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView preparaTuSanguche(@ModelAttribute(value="agregarIng")Ingrediente ingredienteAgregar,
-										  @ModelAttribute(value="quitarIng")Ingrediente ingredienteQuitar){
-		if(usuario==null)
+	@RequestMapping(
+			value = "/u/{nombreUsuario}/prepara-tu-sanguche",
+			method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView preparaTuSanguche(@PathVariable String nombreUsuario, @ModelAttribute(
+			value = "agregarIng") Ingrediente ingredienteAgregar,
+			@ModelAttribute(
+					value = "quitarIng") Ingrediente ingredienteQuitar) {
+		if (usuario == null)
 			return new ModelAndView();
 		ModelMap modelo = new ModelMap();
 		Stock stock = Stock.getInstance();
@@ -53,41 +68,51 @@ public class ControladoresSanguchettoWeb {
 		Set<Ingrediente> condimentos = new HashSet<Ingrediente>();
 		Set<Ingrediente> listaMezclada = stock.listarIngredientesDisponibles();
 		dividirIngredientes(ingredientes, condimentos, listaMezclada);
-		modelo.put("username", usuario.getUsername());
+		modelo.put("userName", nombreUsuario);
 		modelo.put("ingredientes", ingredientes);
 		modelo.put("condimentos", condimentos);
-		modelo.put("sanguche",Sanguchetto.getInstance());
+		modelo.put("sanguche", Sanguchetto.getInstance());
 		return new ModelAndView("preparacion", modelo);
 	}
-	
-	@RequestMapping(value = "/prepara-tu-sanguche/agregar", method = RequestMethod.POST)
-	public ModelAndView agregarIngredientes(@ModelAttribute(value="agregarIng")Ingrediente ingredienteAgregar){
+
+	@RequestMapping(
+			value = "/u/{nombreUsuario}/prepara-tu-sanguche/agregar",
+			method = RequestMethod.POST)
+	public ModelAndView agregarIngredientes(@PathVariable String nombreUsuario, @ModelAttribute(
+			value = "agregarIng") Ingrediente ingredienteAgregar) {
 		Sanguchetto.getInstance().agregarIngrediente(ingredienteAgregar);
-		return new ModelAndView("redirect:/prepara-tu-sanguche");
+		return new ModelAndView("redirect:/u/{nombreUsuario}/prepara-tu-sanguche");
 	}
-	
-	@RequestMapping(value = "/prepara-tu-sanguche/quitar", method = RequestMethod.POST)
-	public ModelAndView quitarIngredientes(@ModelAttribute(value="quitarIng")Ingrediente ingredienteQuitar){
+
+	@RequestMapping(
+			value = "/u/{nombreUsuario}/prepara-tu-sanguche/quitar",
+			method = RequestMethod.POST)
+	public ModelAndView quitarIngredientes(@ModelAttribute(
+			value = "quitarIng") Ingrediente ingredienteQuitar) {
 		Sanguchetto.getInstance().quitarIngrediente(ingredienteQuitar);
-		return new ModelAndView("redirect:/prepara-tu-sanguche");
+		return new ModelAndView("redirect:/u/{nombreUsuario}/prepara-tu-sanguche");
 	}
-	@RequestMapping(value = "/prepara-tu-sanguche/cancelar")
-	public ModelAndView cancelarCompra(){
+
+	@RequestMapping(
+			value = "/u/{nombreUsuario}/prepara-tu-sanguche/cancelar")
+	public ModelAndView cancelarCompra() {
 		Sanguchetto.getInstance().vaciar();
-		return new ModelAndView("redirect:/prepara-tu-sanguche");
+		return new ModelAndView("redirect:/u/{nombreUsuario}/prepara-tu-sanguche");
 	}
-	@RequestMapping(value = "/compra-realizada")
-	public ModelAndView compraRealizada(){
+
+	@RequestMapping(
+			value = "/u/{nombreUsuario}/compra-realizada")
+	public ModelAndView compraRealizada(@PathVariable String nombreUsuario) {
 		Sanguchetto.getInstance().comprar();
-		ModelMap modelo=new ModelMap();
-		modelo.put("username",usuario.getUsername());
-		return new ModelAndView("compraRealizada",modelo);
+		ModelMap modelo = new ModelMap();
+		modelo.put("userName", nombreUsuario);
+		return new ModelAndView("compraRealizada", modelo);
 	}
-	
-	
-	@RequestMapping(value = "/gestion-sitio")
+
+	@RequestMapping(
+			value = "/gestion-sitio")
 	public ModelAndView gestionSitio() {
-		if(usuario==null)
+		if (usuario == null)
 			return new ModelAndView();
 		ModelMap modelo = new ModelMap();
 		Stock stock = Stock.getInstance();
@@ -97,57 +122,73 @@ public class ControladoresSanguchettoWeb {
 		dividirIngredientes(ingredientes, condimentos, listaMezclada);
 		modelo.put("ingredientes", ingredientes);
 		modelo.put("condimentos", condimentos);
-		modelo.put("stock",stock);
+		modelo.put("stock", stock);
 		modelo.put("username", usuario.getUsername());
-		modelo.put("objetoCompra",new ObjetoCompra());
-		modelo.put("ingredienteEliminar",new Ingrediente());
+		modelo.put("objetoCompra", new ObjetoCompra());
+		modelo.put("ingredienteEliminar", new Ingrediente());
 		return new ModelAndView("gestion", modelo);
 	}
-	
-	@RequestMapping(value = "/gestion-sitio/eliminar-ingrediente")
-	public ModelAndView agregarStock(@ModelAttribute(value="ingredienteEliminar")Ingrediente ingrediente){
+
+	@RequestMapping(
+			value = "/gestion-sitio/eliminar-ingrediente")
+	public ModelAndView agregarStock(@ModelAttribute(
+			value = "ingredienteEliminar") Ingrediente ingrediente) {
 		Stock.getInstance().eliminarIngrediente(ingrediente);
 		return new ModelAndView("redirect:/gestion-sitio");
 	}
-	@RequestMapping(value = "/gestion-sitio/comprar")
-	public ModelAndView agregarStock(@ModelAttribute(value="objetoCompra")ObjetoCompra compra){
-		Stock.getInstance().agregarStock(new Ingrediente(compra.getNombre()),compra.getCantidad());
+
+	@RequestMapping(
+			value = "/gestion-sitio/comprar")
+	public ModelAndView agregarStock(@ModelAttribute(
+			value = "objetoCompra") ObjetoCompra compra) {
+		Stock.getInstance().agregarStock(new Ingrediente(compra.getNombre()), compra.getCantidad());
 		return new ModelAndView("redirect:/gestion-sitio");
 	}
-	@RequestMapping(value = "/condimento-nuevo")
-	public ModelAndView condimentoNuevo(){
-		ModelMap modelo= new ModelMap();
+
+	@RequestMapping(
+			value = "/condimento-nuevo")
+	public ModelAndView condimentoNuevo() {
+		ModelMap modelo = new ModelMap();
 		modelo.put("condimento", new Ingrediente());
-		return new ModelAndView("agregarCondimento",modelo);
+		return new ModelAndView("agregarCondimento", modelo);
 	}
-	@RequestMapping(value = "/condimento-nuevo/datos")
-	public ModelAndView condimentoNuevoDatos(@ModelAttribute(value="condimento")Ingrediente condimento){
+
+	@RequestMapping(
+			value = "/condimento-nuevo/datos")
+	public ModelAndView condimentoNuevoDatos(@ModelAttribute(
+			value = "condimento") Ingrediente condimento) {
 		condimento.setTipo(TipoIngrediente.CONDIMENTO);
 		Stock.getInstance().agregarIngrediente(condimento);
 		return new ModelAndView("redirect:/gestion-sitio");
 	}
-	@RequestMapping(value = "/ingrediente-nuevo")
-	public ModelAndView ingredienteNuevo(){
-		ModelMap modelo= new ModelMap();
+
+	@RequestMapping(
+			value = "/ingrediente-nuevo")
+	public ModelAndView ingredienteNuevo() {
+		ModelMap modelo = new ModelMap();
 		modelo.put("ingrediente", new Ingrediente());
-		return new ModelAndView("agregarIngrediente",modelo);
+		return new ModelAndView("agregarIngrediente", modelo);
 	}
-	@RequestMapping(value = "/ingrediente-nuevo/datos")
-	public ModelAndView ingredienteNuevoDatos(@ModelAttribute(value="ingrediente")Ingrediente ingrediente){
+
+	@RequestMapping(
+			value = "/ingrediente-nuevo/datos")
+	public ModelAndView ingredienteNuevoDatos(@ModelAttribute(
+			value = "ingrediente") Ingrediente ingrediente) {
 		ingrediente.setTipo(TipoIngrediente.INGREDIENTE);
 		Stock.getInstance().agregarIngrediente(ingrediente);
 		return new ModelAndView("redirect:/gestion-sitio");
 	}
-	private static void dividirIngredientes(Set<Ingrediente> ingredientes, Set<Ingrediente> condimentos,
-			Set<Ingrediente> listaMezclada) {
-		for (Ingrediente ingrediente : listaMezclada) {
+
+	private static void dividirIngredientes(Set<Ingrediente> ingredientes, Set<Ingrediente> condimentos, Set<Ingrediente> listaMezclada) {
+		for (Ingrediente ingrediente: listaMezclada) {
 			if (ingrediente.getTipo().equals(TipoIngrediente.INGREDIENTE))
 				ingredientes.add(ingrediente);
 			else
 				condimentos.add(ingrediente);
 		}
 	}
-	private static void inicializarStock(){
+
+	private static void inicializarStock() {
 		Stock stock = Stock.getInstance();
 		if (stock.listarIngredientesDisponibles().isEmpty()) {
 			Ingrediente mayonesa = new Ingrediente("mayonesa", 0.50, TipoIngrediente.CONDIMENTO);

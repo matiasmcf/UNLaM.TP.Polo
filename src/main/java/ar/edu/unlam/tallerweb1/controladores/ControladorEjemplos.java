@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.unlam.tallerweb1.modelo.User;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 @Controller
 public class ControladorEjemplos {
@@ -46,7 +46,7 @@ public class ControladorEjemplos {
 			method = RequestMethod.GET)
 	public ModelAndView bienvenidaObjeto() {
 		ModelMap modelo = new ModelMap();
-		modelo.put("persona", new User("Hola", "Mundo"));
+		modelo.put("persona", new Usuario("Hola", "Mundo"));
 		return new ModelAndView("bienvenidaObjetoPersona", modelo);
 	}
 }
