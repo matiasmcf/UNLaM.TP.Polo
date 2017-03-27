@@ -31,9 +31,9 @@ public class ControladorAplicacion {
 	public RedirectView redireccionar(@ModelAttribute("usuario") Usuario usuario, RedirectAttributes atributos) {
 		if (!SQLiteDatabase.getInstance().verificarDatos(usuario))
 			return new RedirectView("redirect:/");
-		if (usuario.getTipo().equals(TipoUsuario.ADMIN))
-			return new RedirectView("redirect:/gestion-sitio");
 		atributos.addFlashAttribute("cliente", usuario);
+		if (usuario.getTipo().equals(TipoUsuario.ADMIN))
+			return new RedirectView("gestion-sitio");
 		return new RedirectView("prepara-tu-sanguche");
 	}
 }

@@ -36,8 +36,6 @@ public class ControladorCliente {
 			cliente = new Usuario();
 			cliente.clonar(usuario);
 		}
-		else
-			System.out.println("[" + cliente.getUsername() + "] ha recargado la página.");
 		ModelMap modelo = new ModelMap();
 		Stock stock = Stock.getInstance();
 		Set<Ingrediente> ingredientes = new HashSet<Ingrediente>();

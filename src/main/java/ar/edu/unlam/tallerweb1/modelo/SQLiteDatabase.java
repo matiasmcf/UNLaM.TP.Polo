@@ -169,12 +169,12 @@ public class SQLiteDatabase {
 		}
 	}
 
-	public boolean insertarIngrediente(Ingrediente ingrediente) {
+	public boolean insertarIngrediente(Stock stock, Ingrediente ingrediente) {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			Connection conexion = DriverManager.getConnection(databaseDriver + databaseURL);
 			Statement st = conexion.createStatement();
-			String query = "Insert into Stock values('" + ingrediente.getNombre() + "','" + ingrediente.getPrecio() + "','" + Stock.getInstance().obtenerStockDisponible(ingrediente) + "','"
+			String query = "Insert into Stock values('" + ingrediente.getNombre() + "','" + ingrediente.getPrecio() + "','" + stock.obtenerStockDisponible(ingrediente) + "','"
 					+ (ingrediente.getTipo().equals(TipoIngrediente.INGREDIENTE) == true ? "0" : "1") + "')";
 			st.executeUpdate(query);
 			st.close();
@@ -192,4 +192,47 @@ public class SQLiteDatabase {
 		}
 	}
 
+	public boolean actualizarStockIngrediente(Stock stock, Ingrediente ingrediente) {
+		try {
+			Class.forName("org.sqlite.JDBC");
+			Connection conexion = DriverManager.getConnection(databaseDriver + databaseURL);
+			Statement st = conexion.createStatement();
+			String query = "Update Stock set stock='" + stock.obtenerStockDisponible(ingrediente) + "' where ingrediente='" + ingrediente.getNombre() + "'";
+			st.executeUpdate(query);
+			st.close();
+			conexion.close();
+			return true;
+		}
+		catch (SQLException sqle) {
+			sqle.printStackTrace();
+			System.out.println("registrarUsuario() - No se pudo lograr la coneccion con la base de datos");
+			return false;
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean eliminarIngrediente(Ingrediente ingrediente) {
+		try {
+			Class.forName("org.sqlite.JDBC");
+			Connection conexion = DriverManager.getConnection(databaseDriver + databaseURL);
+			Statement st = conexion.createStatement();
+			String query = "Delete from Stock where ingrediente='" + ingrediente.getNombre() + "'";
+			st.executeUpdate(query);
+			st.close();
+			conexion.close();
+			return true;
+		}
+		catch (SQLException sqle) {
+			sqle.printStackTrace();
+			System.out.println("registrarUsuario() - No se pudo lograr la coneccion con la base de datos");
+			return false;
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
