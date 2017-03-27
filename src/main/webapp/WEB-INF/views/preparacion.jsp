@@ -19,10 +19,10 @@
 		<div class="page-header">
 			<div class="row">
 				<div class="col-md-11">
-					<h3>Bienvenido a Sanguchetto ${username} !</h3>
+					<h3>Bienvenido a Sanguchetto ${userName} !</h3>
 				</div>
 				<div class="col-md-1">
-					<form:form action="/sitio-polo">
+					<form:form action="prepara-tu-sanguche/salir">
 						<br>
 						<button type="submit" class="btn btn-xs btn-warning">Salir</button>
 					</form:form>

@@ -3,111 +3,17 @@ package ar.edu.unlam.tallerweb1.controladores;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Ingrediente;
 import ar.edu.unlam.tallerweb1.modelo.ObjetoCompra;
-import ar.edu.unlam.tallerweb1.modelo.SQLiteDatabase;
-import ar.edu.unlam.tallerweb1.modelo.Sanguchetto;
 import ar.edu.unlam.tallerweb1.modelo.Stock;
 import ar.edu.unlam.tallerweb1.modelo.TipoIngrediente;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
-import ar.edu.unlam.tallerweb1.modelo.Usuario.TipoUsuario;
 
-@Controller
 public class ControladoresSanguchettoWeb {
-
-	private Usuario usuario;
-
-	public ControladoresSanguchettoWeb() {
-		inicializarStock();
-	}
-
-	@RequestMapping(
-			path = "/")
-	public ModelAndView irAHome() {
-		System.out.println("INICIANDO");
-		SQLiteDatabase.getInstace().cargarIngredientes();
-		ModelMap modelo = new ModelMap();
-		usuario = null;
-		modelo.put("user", new Usuario());
-		return new ModelAndView("home", modelo);
-	}
-
-	@RequestMapping(
-			value = "/redireccionar",
-			method = RequestMethod.POST)
-	public ModelAndView redireccionar(@ModelAttribute("user") Usuario user) {
-		System.out.println("REDIRECCIONANDO");
-		usuario = user;
-		if (!SQLiteDatabase.getInstace().verificarDatos(user))
-			return new ModelAndView("redirect:/");
-		if (user.getTipo().equals(TipoUsuario.ADMIN))
-			return new ModelAndView("redirect:/gestion-sitio");
-		return new ModelAndView("redirect:/u/" + user.getUsername() + "/prepara-tu-sanguche");
-	}
-
-	@RequestMapping(
-			value = "/u/{nombreUsuario}/prepara-tu-sanguche",
-			method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView preparaTuSanguche(@PathVariable String nombreUsuario, @ModelAttribute(
-			value = "agregarIng") Ingrediente ingredienteAgregar,
-			@ModelAttribute(
-					value = "quitarIng") Ingrediente ingredienteQuitar) {
-		if (usuario == null)
-			return new ModelAndView();
-		ModelMap modelo = new ModelMap();
-		Stock stock = Stock.getInstance();
-		Set<Ingrediente> ingredientes = new HashSet<Ingrediente>();
-		Set<Ingrediente> condimentos = new HashSet<Ingrediente>();
-		Set<Ingrediente> listaMezclada = stock.listarIngredientesDisponibles();
-		dividirIngredientes(ingredientes, condimentos, listaMezclada);
-		modelo.put("userName", nombreUsuario);
-		modelo.put("ingredientes", ingredientes);
-		modelo.put("condimentos", condimentos);
-		modelo.put("sanguche", Sanguchetto.getInstance());
-		return new ModelAndView("preparacion", modelo);
-	}
-
-	@RequestMapping(
-			value = "/u/{nombreUsuario}/prepara-tu-sanguche/agregar",
-			method = RequestMethod.POST)
-	public ModelAndView agregarIngredientes(@PathVariable String nombreUsuario, @ModelAttribute(
-			value = "agregarIng") Ingrediente ingredienteAgregar) {
-		Sanguchetto.getInstance().agregarIngrediente(ingredienteAgregar);
-		return new ModelAndView("redirect:/u/{nombreUsuario}/prepara-tu-sanguche");
-	}
-
-	@RequestMapping(
-			value = "/u/{nombreUsuario}/prepara-tu-sanguche/quitar",
-			method = RequestMethod.POST)
-	public ModelAndView quitarIngredientes(@ModelAttribute(
-			value = "quitarIng") Ingrediente ingredienteQuitar) {
-		Sanguchetto.getInstance().quitarIngrediente(ingredienteQuitar);
-		return new ModelAndView("redirect:/u/{nombreUsuario}/prepara-tu-sanguche");
-	}
-
-	@RequestMapping(
-			value = "/u/{nombreUsuario}/prepara-tu-sanguche/cancelar")
-	public ModelAndView cancelarCompra() {
-		Sanguchetto.getInstance().vaciar();
-		return new ModelAndView("redirect:/u/{nombreUsuario}/prepara-tu-sanguche");
-	}
-
-	@RequestMapping(
-			value = "/u/{nombreUsuario}/compra-realizada")
-	public ModelAndView compraRealizada(@PathVariable String nombreUsuario) {
-		Sanguchetto.getInstance().comprar();
-		ModelMap modelo = new ModelMap();
-		modelo.put("userName", nombreUsuario);
-		return new ModelAndView("compraRealizada", modelo);
-	}
 
 	@RequestMapping(
 			value = "/gestion-sitio")

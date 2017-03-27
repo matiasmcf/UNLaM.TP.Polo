@@ -19,10 +19,16 @@ public class Usuario {
 		this.tipo = tipo;
 	}
 
-	public Usuario(String nombre, String apellido) {
+	public Usuario(String nombre, String password) {
 		this.username = nombre;
-		this.password = apellido;
+		this.password = password;
 		this.tipo = TipoUsuario.CLIENTE;
+	}
+
+	public Usuario(String nombre, TipoUsuario tipo) {
+		this.username = nombre;
+		this.tipo = tipo;
+		this.password = "";
 	}
 
 	public Usuario() {
@@ -42,5 +48,19 @@ public class Usuario {
 
 	public void setPassword(String apellido) {
 		this.password = apellido;
+	}
+
+	public void clonar(Usuario usuario) {
+		this.username = usuario.username;
+		this.tipo = usuario.tipo;
+		this.password = usuario.password;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Usuario other = (Usuario)obj;
+		if (username.equals(other.username))
+			return true;
+		return true;
 	}
 }

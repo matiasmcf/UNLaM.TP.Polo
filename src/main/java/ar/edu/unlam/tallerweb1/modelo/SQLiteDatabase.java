@@ -14,14 +14,24 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario.TipoUsuario;
  */
 public class SQLiteDatabase {
 
-	private static SQLiteDatabase	database	= new SQLiteDatabase();
-	private String					databaseURL	= "jdbc:sqlite:src/main/resources/database/database.sqlite";
+	private static SQLiteDatabase database;
+
+	public static void setDatabase(SQLiteDatabase database) {
+		SQLiteDatabase.database = database;
+	}
+
+	private String	databaseDriver	= "jdbc:sqlite:";
+	private String	databaseURL;
+
+	public void setDatabaseURL(String databaseURL) {
+		this.databaseURL = databaseURL;
+	}
 
 	private SQLiteDatabase() {
 
 	}
 
-	public static SQLiteDatabase getInstace() {
+	public static SQLiteDatabase getInstance() {
 		return database;
 	}
 
@@ -36,7 +46,7 @@ public class SQLiteDatabase {
 		boolean estado = false;
 		try {
 			Class.forName("org.sqlite.JDBC");
-			Connection conexion = DriverManager.getConnection(databaseURL);
+			Connection conexion = DriverManager.getConnection(databaseDriver + databaseURL);
 			PreparedStatement pst = conexion.prepareStatement(query);
 			ResultSet rs = pst.executeQuery();
 			if (!rs.next())
@@ -64,7 +74,7 @@ public class SQLiteDatabase {
 		boolean estado = false;
 		try {
 			Class.forName("org.sqlite.JDBC");
-			Connection conexion = DriverManager.getConnection(databaseURL);
+			Connection conexion = DriverManager.getConnection(databaseDriver + databaseURL);
 			PreparedStatement pst = conexion.prepareStatement(query);
 			ResultSet rs = pst.executeQuery();
 			if (!rs.next())
@@ -72,8 +82,7 @@ public class SQLiteDatabase {
 			else {
 				estado = true;
 				usuario.setTipo(rs.getString("tipo").equals("admin") ? TipoUsuario.ADMIN : TipoUsuario.CLIENTE);
-				// TODO: Eliminar el singleton de Sanguchetto para que cada usuario tenga su propio sanguche independiente.
-				Usuarios.getInstance().agregarUsuario(usuario, Sanguchetto.getInstance());
+				Usuarios.getInstance().agregarUsuario(usuario, new Sanguchetto("Sanguche-" + usuario.getUsername()));
 			}
 			pst.close();
 			rs.close();
@@ -113,7 +122,7 @@ public class SQLiteDatabase {
 			return false;
 		try {
 			Class.forName("org.sqlite.JDBC");
-			Connection conexion = DriverManager.getConnection(databaseURL);
+			Connection conexion = DriverManager.getConnection(databaseDriver + databaseURL);
 			Statement st = conexion.createStatement();
 			String query = "Insert into Usuario values('" + usuario + "','" + password + "')";
 			st.executeUpdate(query);
@@ -132,13 +141,13 @@ public class SQLiteDatabase {
 		}
 	}
 
-	public void cargarIngredientes() {
-		Stock stock = Stock.getInstance();
+	public void cargarIngredientes(Stock stock) {
 		System.out.println("Cargando ingredientes");
 		String sql = "SELECT * FROM Stock";
 		try {
 			Class.forName("org.sqlite.JDBC");
-			Connection conexion = DriverManager.getConnection(databaseURL);
+			System.out.println("URL: " + databaseURL);
+			Connection conexion = DriverManager.getConnection(databaseDriver + databaseURL);
 			PreparedStatement pst = conexion.prepareStatement(sql);
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
@@ -152,10 +161,34 @@ public class SQLiteDatabase {
 			conexion.close();
 		}
 		catch (SQLException ex) {
+			ex.printStackTrace();
 			System.out.println("cargarIngredientes() - No se pudo lograr la conexion con la base de datos");
 		}
 		catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}
+	}
+
+	public boolean insertarIngrediente(Ingrediente ingrediente) {
+		try {
+			Class.forName("org.sqlite.JDBC");
+			Connection conexion = DriverManager.getConnection(databaseDriver + databaseURL);
+			Statement st = conexion.createStatement();
+			String query = "Insert into Stock values('" + ingrediente.getNombre() + "','" + ingrediente.getPrecio() + "','" + Stock.getInstance().obtenerStockDisponible(ingrediente) + "','"
+					+ (ingrediente.getTipo().equals(TipoIngrediente.INGREDIENTE) == true ? "0" : "1") + "')";
+			st.executeUpdate(query);
+			st.close();
+			conexion.close();
+			return true;
+		}
+		catch (SQLException sqle) {
+			sqle.printStackTrace();
+			System.out.println("registrarUsuario() - No se pudo lograr la coneccion con la base de datos");
+			return false;
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
 

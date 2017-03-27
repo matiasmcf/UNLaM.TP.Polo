@@ -24,14 +24,14 @@
 	<div class="container theme-showcase" role="main" align="CENTER">
 		<br> <br> <br> <br> <br> <br> <br>
 		<h2>
-			<span class="label label-success">${userName} !, Gracias por
-				comprar en Sanguchetto</span>
+			<span class="label label-success">¡Gracias por
+				comprar en Sanguchetto!</span>
 		</h2>
 		<br> <br> <br> <br>
 		<table>
 			<tbody>
 				<tr>
-					<td><form:form action="/sitio-polo/u/${userName}/prepara-tu-sanguche">
+					<td><form:form action="/sitio-polo/prepara-tu-sanguche">
 							<button type="submit" class="btn btn btn-success" value="Submit">Comprar
 								otro producto</button>
 						</form:form></td>

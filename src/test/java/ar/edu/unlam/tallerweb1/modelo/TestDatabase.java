@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class TestDatabase {
 
-	private SQLiteDatabase	db	= SQLiteDatabase.getInstace();
+	private SQLiteDatabase	db	= SQLiteDatabase.getInstance();
 	private Usuario			usuario;
 
 	@Test

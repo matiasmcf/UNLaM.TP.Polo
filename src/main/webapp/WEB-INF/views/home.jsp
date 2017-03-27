@@ -38,7 +38,7 @@
 					</div>
 					<div class="panel-body">
 						<form:form type="post" action="redireccionar"
-							modelAttribute="user">
+							modelAttribute="usuario">
 							<br>
 							<br>
 							<label>Usuario:&nbsp;&nbsp;&nbsp;&nbsp;</label>

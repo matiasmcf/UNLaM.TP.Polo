@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class Usuarios {
 
 	private static Usuarios					instance		= new Usuarios();
-	private HashMap<Usuario, Sanguchetto>	usuariosActivos	= new HashMap<Usuario, Sanguchetto>();
+	private HashMap<String, Sanguchetto>	usuariosActivos	= new HashMap<String, Sanguchetto>();
 
 	private Usuarios() {
 	};
@@ -15,9 +15,9 @@ public class Usuarios {
 	}
 
 	public boolean agregarUsuario(Usuario usuario, Sanguchetto sanguche) {
-		if (!usuariosActivos.containsKey(usuario))
+		if (usuariosActivos.containsKey(usuario))
 			return false;
-		usuariosActivos.put(usuario, sanguche);
+		usuariosActivos.put(usuario.getUsername(), sanguche);
 		return true;
 	}
 
@@ -26,7 +26,12 @@ public class Usuarios {
 	}
 
 	public Sanguchetto obtenerSanguche(Usuario usuario) {
-		return usuariosActivos.get(usuario);
+		for (String s: usuariosActivos.keySet()) {
+			System.out.println(s + "\t" + usuariosActivos.get(s));
+		}
+		if (!usuariosActivos.containsKey(usuario.getUsername()))
+			System.out.println("[Usuarios.obtenerSanguche()] - No existe el sanguche.");
+		return usuariosActivos.get(usuario.getUsername());
 	}
 
 }
