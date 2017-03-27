@@ -26,6 +26,6 @@
 		<property name="databaseURL"
 			value="E:/Workspace/UNLaM.TP.Polo/src/main/resources/database/database.sqlite" />
 			<property name="database" ref="database"></property>
-	</bean>
+	</bean> 
 	
 </beans>
