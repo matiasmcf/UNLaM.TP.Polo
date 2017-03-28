@@ -1,17 +1,24 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
 public class Ingrediente {
+	
+	public enum TipoIngrediente {
+
+		INGREDIENTE,
+		CONDIMENTO;
+	}
 
 	private String nombre;
 	private Double precio;
 	private TipoIngrediente tipo;
 
-	public Ingrediente(String nombre, Double precio, TipoIngrediente tipo) { 
+	public Ingrediente(String nombre, Double precio, TipoIngrediente tipo) {
 		this.nombre = nombre;
 		this.precio = precio;
 		this.tipo = tipo;
 	}
-	public Ingrediente(String nombre) { 
+
+	public Ingrediente(String nombre) {
 		this.nombre = nombre;
 	}
 

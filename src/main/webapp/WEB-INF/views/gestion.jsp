@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head> 
+<head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Gestione el stock</title>
 <!-- Bootstrap core CSS -->
@@ -46,6 +46,13 @@
 											<td align="LEFT"><button type="submit"
 													class="btn btn btn-success" value="Submit">Comprar
 													stock</button></td>
+										</form:form>
+										<form:form action="gestion-sitio/vaciar"
+											modelAttribute="ingredienteEliminar" method="POST">
+											<td><form:input type="hidden" path="nombre"
+													value="${ingrediente.nombre}" /></td>
+											<td align="RIGHT"><button type="submit"
+													class="btn btn btn-primary" value="Submit">Vaciar stock</button></td>
 										</form:form>
 										<form:form action="gestion-sitio/eliminar-ingrediente"
 											modelAttribute="ingredienteEliminar" method="POST">
@@ -93,6 +100,13 @@
 											<td align="LEFT"><button type="submit"
 													class="btn btn btn-success" value="Submit">Comprar
 													stock</button></td>
+										</form:form>
+										<form:form action="gestion-sitio/vaciar"
+											modelAttribute="ingredienteEliminar" method="POST">
+											<td><form:input type="hidden" path="nombre"
+													value="${ingrediente.nombre}" /></td>
+											<td align="RIGHT"><button type="submit"
+													class="btn btn btn-primary" value="Submit">Vaciar stock</button></td>
 										</form:form>
 										<form:form action="gestion-sitio/eliminar-ingrediente"
 											modelAttribute="ingredienteEliminar" method="POST">

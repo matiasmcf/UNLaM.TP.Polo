@@ -39,7 +39,7 @@
 							<br>
 							<br>
 							<label>Precio:&nbsp;</label>
-							<form:input path="precio" placeholder="Ingrese precio ingrediente." />
+							<form:input type="number" step="0.01" path="precio" placeholder="Ingrese precio ingrediente." />
 							<br>
 							<br>
 							<br>

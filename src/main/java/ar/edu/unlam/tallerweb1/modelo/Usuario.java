@@ -3,13 +3,21 @@ package ar.edu.unlam.tallerweb1.modelo;
 public class Usuario {
 
 	public enum TipoUsuario {
-		ADMIN,
-		CLIENTE
+		ADMIN, CLIENTE
 	}
 
-	private String		username;
-	private String		password;
-	private TipoUsuario	tipo;
+	private String username;
+	private String password;
+	private TipoUsuario tipo;
+	private boolean accion; //true=inicio sesion - false=registro
+
+	public boolean isAccion() {
+		return accion;
+	}
+
+	public void setAccion(boolean accion) {
+		this.accion = accion;
+	}
 
 	public TipoUsuario getTipo() {
 		return tipo;
@@ -58,7 +66,7 @@ public class Usuario {
 
 	@Override
 	public boolean equals(Object obj) {
-		Usuario other = (Usuario)obj;
+		Usuario other = (Usuario) obj;
 		if (username.equals(other.username))
 			return true;
 		return true;

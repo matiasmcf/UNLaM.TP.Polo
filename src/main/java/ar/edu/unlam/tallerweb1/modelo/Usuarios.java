@@ -26,9 +26,6 @@ public class Usuarios {
 	}
 
 	public Sanguchetto obtenerSanguche(Usuario usuario) {
-		for (String s: usuariosActivos.keySet()) {
-			System.out.println(s + "\t" + usuariosActivos.get(s));
-		}
 		if (!usuariosActivos.containsKey(usuario.getUsername()))
 			System.out.println("[Usuarios.obtenerSanguche()] - No existe el sanguche.");
 		return usuariosActivos.get(usuario.getUsername());

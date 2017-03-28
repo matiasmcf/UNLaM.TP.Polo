@@ -15,7 +15,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ar.edu.unlam.tallerweb1.modelo.Ingrediente;
 import ar.edu.unlam.tallerweb1.modelo.Stock;
-import ar.edu.unlam.tallerweb1.modelo.TipoIngrediente;
+import ar.edu.unlam.tallerweb1.modelo.Ingrediente.TipoIngrediente;
+import ar.edu.unlam.tallerweb1.modelo.Sanguchetto;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.modelo.Usuarios;
 
@@ -45,6 +46,7 @@ public class ControladorCliente {
 		modelo.put("userName", cliente.getUsername());
 		modelo.put("ingredientes", ingredientes);
 		modelo.put("condimentos", condimentos);
+		modelo.put("descuento",new Sanguchetto());
 		modelo.put("sanguche", Usuarios.getInstance().obtenerSanguche(cliente));
 		return new ModelAndView("preparacion", modelo);
 	}
@@ -55,7 +57,7 @@ public class ControladorCliente {
 	public ModelAndView acciones(@PathVariable String accion, @ModelAttribute(
 			value = "agregarIng") Ingrediente ingredienteAgregar,
 			@ModelAttribute(
-					value = "quitarIng") Ingrediente ingredienteQuitar) {
+					value = "quitarIng") Ingrediente ingredienteQuitar,@ModelAttribute(value="descuento")Sanguchetto descuento) {
 		if (accion.equals("agregar")) {
 			Usuarios.getInstance().obtenerSanguche(cliente).agregarIngrediente(ingredienteAgregar);
 		}
@@ -64,6 +66,9 @@ public class ControladorCliente {
 		}
 		if (accion.equals("cancelar")) {
 			Usuarios.getInstance().obtenerSanguche(cliente).vaciar();
+		}
+		if (accion.equals("descuento")) {
+			Usuarios.getInstance().obtenerSanguche(cliente).setDescuento(descuento.getDescuento());;
 		}
 		if (accion.equals("salir")) {
 			Usuarios.getInstance().quitarUsuario(cliente);

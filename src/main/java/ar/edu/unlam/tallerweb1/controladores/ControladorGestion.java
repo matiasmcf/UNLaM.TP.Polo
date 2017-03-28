@@ -14,7 +14,7 @@ import ar.edu.unlam.tallerweb1.modelo.Ingrediente;
 import ar.edu.unlam.tallerweb1.modelo.ObjetoCompra;
 import ar.edu.unlam.tallerweb1.modelo.SQLiteDatabase;
 import ar.edu.unlam.tallerweb1.modelo.Stock;
-import ar.edu.unlam.tallerweb1.modelo.TipoIngrediente;
+import ar.edu.unlam.tallerweb1.modelo.Ingrediente.TipoIngrediente;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 @Controller
@@ -59,6 +59,15 @@ public class ControladorGestion {
 	public ModelAndView agregarStock(@ModelAttribute(
 			value = "objetoCompra") ObjetoCompra compra) {
 		Stock.getInstance().agregarStock(new Ingrediente(compra.getNombre()), compra.getCantidad());
+		SQLiteDatabase.getInstance().actualizarStockIngrediente(Stock.getInstance(), new Ingrediente(compra.getNombre()));
+		return new ModelAndView("redirect:/gestion-sitio");
+	}
+	
+	@RequestMapping(
+			value = "/gestion-sitio/vaciar")
+	public ModelAndView vaciarStock(@ModelAttribute(
+			value = "objetoCompra") ObjetoCompra compra) {
+		Stock.getInstance().vaciarStock(new Ingrediente(compra.getNombre()));
 		SQLiteDatabase.getInstance().actualizarStockIngrediente(Stock.getInstance(), new Ingrediente(compra.getNombre()));
 		return new ModelAndView("redirect:/gestion-sitio");
 	}

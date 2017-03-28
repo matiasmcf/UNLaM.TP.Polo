@@ -3,10 +3,26 @@ package ar.edu.unlam.tallerweb1.modelo;
 import java.util.LinkedList;
 import java.util.List;
 
+import ar.edu.unlam.tallerweb1.modelo.Ingrediente.TipoIngrediente;
+
 public class Sanguchetto {
 
-	private List<Ingrediente>	ingredientes;
-	private String				nombre;
+	private List<Ingrediente> ingredientes;
+	private String nombre;
+	private String descuento;
+
+	public void setDescuento(String descuento) {
+		this.descuento = descuento;
+	}
+
+	public String getDescuento() {
+		return descuento;
+	}
+	
+	public String getPorcentajeDescuento(){
+		String res=String.format("%d",(int) (Descuento.getInstance().obtenerDescuento(descuento)*100));
+		return res+"%";
+	}
 
 	public Sanguchetto() {
 		nombre = "SinNombre";
@@ -22,7 +38,7 @@ public class Sanguchetto {
 	 * Elimina todos los ingredientes del sanguchetto.<br>
 	 */
 	public void vaciar() {
-		for (Ingrediente ingrediente: ingredientes)
+		for (Ingrediente ingrediente : ingredientes)
 			Stock.getInstance().agregarStock(ingrediente, 1);
 		this.ingredientes.removeAll(ingredientes);
 	}
@@ -53,7 +69,7 @@ public class Sanguchetto {
 	 */
 	public List<Ingrediente> verIngredientes() {
 		List<Ingrediente> ingredientesSinCondimentos = new LinkedList<Ingrediente>();
-		for (Ingrediente ingrediente: ingredientes) {
+		for (Ingrediente ingrediente : ingredientes) {
 			if (ingrediente.getTipo().equals(TipoIngrediente.INGREDIENTE)) {
 				ingredientesSinCondimentos.add(ingrediente);
 			}
@@ -68,7 +84,7 @@ public class Sanguchetto {
 	 */
 	public List<Ingrediente> verCondimentos() {
 		List<Ingrediente> condimentos = new LinkedList<Ingrediente>();
-		for (Ingrediente ingrediente: ingredientes) {
+		for (Ingrediente ingrediente : ingredientes) {
 			if (ingrediente.getTipo().equals(TipoIngrediente.CONDIMENTO)) {
 				condimentos.add(ingrediente);
 			}
@@ -83,7 +99,20 @@ public class Sanguchetto {
 	 */
 	public Double getPrecio() {
 		Double precio = 0.;
-		for (Ingrediente ingrediente: ingredientes) {
+		for (Ingrediente ingrediente : ingredientes) {
+			precio += ingrediente.getPrecio();
+		}
+		return precio-precio*Descuento.getInstance().obtenerDescuento(descuento);
+	}
+	
+	/**
+	 * Devuelve el precio total del sanguchetto sin descuento.<br>
+	 * 
+	 * @return
+	 */
+	public Double getPrecioSinDescuento() {
+		Double precio = 0.;
+		for (Ingrediente ingrediente : ingredientes) {
 			precio += ingrediente.getPrecio();
 		}
 		return precio;

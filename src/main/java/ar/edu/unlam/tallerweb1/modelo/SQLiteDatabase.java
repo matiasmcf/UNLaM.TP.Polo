@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import ar.edu.unlam.tallerweb1.modelo.Ingrediente.TipoIngrediente;
 import ar.edu.unlam.tallerweb1.modelo.Usuario.TipoUsuario;
 
 /**
@@ -124,7 +125,7 @@ public class SQLiteDatabase {
 			Class.forName("org.sqlite.JDBC");
 			Connection conexion = DriverManager.getConnection(databaseDriver + databaseURL);
 			Statement st = conexion.createStatement();
-			String query = "Insert into Usuario values('" + usuario + "','" + password + "')";
+			String query = "Insert into Usuario values('" + usuario + "','" + password +"','"+"cliente"+ "')";
 			st.executeUpdate(query);
 			st.close();
 			conexion.close();
@@ -146,7 +147,6 @@ public class SQLiteDatabase {
 		String sql = "SELECT * FROM Stock";
 		try {
 			Class.forName("org.sqlite.JDBC");
-			System.out.println("URL: " + databaseURL);
 			Connection conexion = DriverManager.getConnection(databaseDriver + databaseURL);
 			PreparedStatement pst = conexion.prepareStatement(sql);
 			ResultSet rs = pst.executeQuery();

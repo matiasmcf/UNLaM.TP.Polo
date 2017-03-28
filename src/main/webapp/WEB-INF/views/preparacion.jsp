@@ -164,11 +164,25 @@
 			</div>
 			<div align="RIGHT">
 				<div class="col-md-6">
+				<form:form action="prepara-tu-sanguche/descuento" modelAttribute="descuento" method="POST" >
+				<label>Codigo de descuento:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+				<form:input path="descuento" placeholder="Ingrese codigo"/>
+				<button type="submit" class="btn btn btn-primary">Aplicar</button>
+				</form:form>
+				<br>
+				<h2>
+						<span class="label label-default">Subtotal:
+							$&nbsp;${sanguche.getPrecioSinDescuento()}</span>
+					</h2>
+				<h3>
+						<span class="label label-default">Descuento:
+							&nbsp;${sanguche.getPorcentajeDescuento()}</span>
+					</h3>
 					<h2>
 						<span class="label label-default">Total:
 							$&nbsp;${sanguche.getPrecio()}</span>
 					</h2>
-					<br> <br> <br> <br> <br> <br> <br>
+					<br>
 					<table>
 						<tbody>
 							<tr>

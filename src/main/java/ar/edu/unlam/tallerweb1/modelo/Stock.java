@@ -142,4 +142,12 @@ public class Stock {
 		this.stock.remove(ingrediente);
 		return true;
 	}
+	
+	public boolean vaciarStock(Ingrediente ingrediente){
+		if (!this.stock.containsKey(ingrediente)) {
+			return false;
+		}
+		this.stock.put(ingrediente, 0);
+		return true;
+	}
 }
