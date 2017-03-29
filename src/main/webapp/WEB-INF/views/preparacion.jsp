@@ -172,7 +172,7 @@
 				<br>
 				<h2>
 						<span class="label label-default">Subtotal:
-							$&nbsp;${sanguche.getPrecioSinDescuento()}</span>
+							$&nbsp;${formato.aplicar(sanguche.getPrecioSinDescuento())}</span>
 					</h2>
 				<h3>
 						<span class="label label-default">Descuento:
@@ -180,7 +180,7 @@
 					</h3>
 					<h2>
 						<span class="label label-default">Total:
-							$&nbsp;${sanguche.getPrecio()}</span>
+							$&nbsp;${formato.aplicar(sanguche.getPrecio())}</span>
 					</h2>
 					<br>
 					<table>

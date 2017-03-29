@@ -125,7 +125,7 @@ public class SQLiteDatabase {
 			Class.forName("org.sqlite.JDBC");
 			Connection conexion = DriverManager.getConnection(databaseDriver + databaseURL);
 			Statement st = conexion.createStatement();
-			String query = "Insert into Usuario values('" + usuario + "','" + password +"','"+"cliente"+ "')";
+			String query = "Insert into Usuario values('" + usuario + "','" + password + "','" + "cliente" + "')";
 			st.executeUpdate(query);
 			st.close();
 			conexion.close();
@@ -151,8 +151,7 @@ public class SQLiteDatabase {
 			PreparedStatement pst = conexion.prepareStatement(sql);
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
-				stock.agregarIngrediente(
-						new Ingrediente(rs.getString("ingrediente"), (double)rs.getFloat("precio"), rs.getInt("tipo") == 0 ? TipoIngrediente.INGREDIENTE : TipoIngrediente.CONDIMENTO));
+				stock.agregarIngrediente(new Ingrediente(rs.getString("ingrediente"), rs.getDouble("precio"), rs.getInt("tipo") == 0 ? TipoIngrediente.INGREDIENTE : TipoIngrediente.CONDIMENTO));
 				stock.agregarStock(new Ingrediente(rs.getString("ingrediente")), rs.getInt("stock"));
 				System.out.println("Cargado: " + rs.getString("ingrediente"));
 			}

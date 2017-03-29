@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import ar.edu.unlam.tallerweb1.modelo.Formatter;
 import ar.edu.unlam.tallerweb1.modelo.Ingrediente;
-import ar.edu.unlam.tallerweb1.modelo.Stock;
 import ar.edu.unlam.tallerweb1.modelo.Ingrediente.TipoIngrediente;
 import ar.edu.unlam.tallerweb1.modelo.Sanguchetto;
+import ar.edu.unlam.tallerweb1.modelo.Stock;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.modelo.Usuarios;
 
@@ -46,8 +47,9 @@ public class ControladorCliente {
 		modelo.put("userName", cliente.getUsername());
 		modelo.put("ingredientes", ingredientes);
 		modelo.put("condimentos", condimentos);
-		modelo.put("descuento",new Sanguchetto());
+		modelo.put("descuento", new Sanguchetto());
 		modelo.put("sanguche", Usuarios.getInstance().obtenerSanguche(cliente));
+		modelo.put("formato", Formatter.getInstance());
 		return new ModelAndView("preparacion", modelo);
 	}
 
@@ -57,7 +59,9 @@ public class ControladorCliente {
 	public ModelAndView acciones(@PathVariable String accion, @ModelAttribute(
 			value = "agregarIng") Ingrediente ingredienteAgregar,
 			@ModelAttribute(
-					value = "quitarIng") Ingrediente ingredienteQuitar,@ModelAttribute(value="descuento")Sanguchetto descuento) {
+					value = "quitarIng") Ingrediente ingredienteQuitar,
+			@ModelAttribute(
+					value = "descuento") Sanguchetto descuento) {
 		if (accion.equals("agregar")) {
 			Usuarios.getInstance().obtenerSanguche(cliente).agregarIngrediente(ingredienteAgregar);
 		}
