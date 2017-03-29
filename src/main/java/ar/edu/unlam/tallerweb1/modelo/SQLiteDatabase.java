@@ -160,7 +160,6 @@ public class SQLiteDatabase {
 			conexion.close();
 		}
 		catch (SQLException ex) {
-			ex.printStackTrace();
 			System.out.println("cargarIngredientes() - No se pudo lograr la conexion con la base de datos");
 		}
 		catch (ClassNotFoundException e) {
@@ -181,8 +180,7 @@ public class SQLiteDatabase {
 			return true;
 		}
 		catch (SQLException sqle) {
-			sqle.printStackTrace();
-			System.out.println("registrarUsuario() - No se pudo lograr la coneccion con la base de datos");
+			System.out.println("insertarIngrediente() - No se pudo lograr la coneccion con la base de datos");
 			return false;
 		}
 		catch (ClassNotFoundException e) {
@@ -203,8 +201,28 @@ public class SQLiteDatabase {
 			return true;
 		}
 		catch (SQLException sqle) {
-			sqle.printStackTrace();
-			System.out.println("registrarUsuario() - No se pudo lograr la coneccion con la base de datos");
+			System.out.println("actualizarStockIngrediente() - No se pudo lograr la coneccion con la base de datos");
+			return false;
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean actualizarPrecioIngrediente(Double precio, Ingrediente ingrediente) {
+		try {
+			Class.forName("org.sqlite.JDBC");
+			Connection conexion = DriverManager.getConnection(databaseDriver + databaseURL);
+			Statement st = conexion.createStatement();
+			String query = "Update Stock set precio='" + precio + "' where ingrediente='" + ingrediente.getNombre() + "'";
+			st.executeUpdate(query);
+			st.close();
+			conexion.close();
+			return true;
+		}
+		catch (SQLException sqle) {
+			System.out.println("actualizarPrecioIngrediente() - No se pudo lograr la coneccion con la base de datos");
 			return false;
 		}
 		catch (ClassNotFoundException e) {
@@ -225,8 +243,7 @@ public class SQLiteDatabase {
 			return true;
 		}
 		catch (SQLException sqle) {
-			sqle.printStackTrace();
-			System.out.println("registrarUsuario() - No se pudo lograr la coneccion con la base de datos");
+			System.out.println("eliminarIngrediente() - No se pudo lograr la coneccion con la base de datos");
 			return false;
 		}
 		catch (ClassNotFoundException e) {
