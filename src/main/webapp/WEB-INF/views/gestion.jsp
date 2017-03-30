@@ -15,11 +15,22 @@
 <body>
 	<div class="container theme-showcase">
 		<div class="page-header">
-			<h3>
-				Bienvenido ${username} ! <br> <br> <small>Aqui
-					podra gestionar el stock, adquirir nuevos productos, eliminar
-					antiguos, aumentar stock de existentes, entre otras cosas. </small>
-			</h3>
+				<div class="row">
+					<div class="col-md-11">
+						<h3>Bienvenido ${username} !</h3>
+					</div>
+					<div class="col-md-1">
+					<br>
+						<form:form action="prepara-tu-sanguche/salir">
+							<button type="submit" class="btn btn-sm btn-warning">Salir</button>
+						</form:form>
+					</div>
+				</div>
+				<h3>
+					<small>Aqui podra gestionar el stock, adquirir nuevos
+						productos, eliminar antiguos, aumentar stock de existentes, entre
+						otras cosas. </small>
+				</h3>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
@@ -52,7 +63,8 @@
 											<td><form:input type="hidden" path="nombre"
 													value="${ingrediente.nombre}" /></td>
 											<td align="RIGHT"><button type="submit"
-													class="btn btn btn-primary" value="Submit">Vaciar stock</button></td>
+													class="btn btn btn-primary" value="Submit">Vaciar
+													stock</button></td>
 										</form:form>
 										<form:form action="gestion-sitio/eliminar-ingrediente"
 											modelAttribute="ingredienteEliminar" method="POST">
@@ -106,7 +118,8 @@
 											<td><form:input type="hidden" path="nombre"
 													value="${ingrediente.nombre}" /></td>
 											<td align="RIGHT"><button type="submit"
-													class="btn btn btn-primary" value="Submit">Vaciar stock</button></td>
+													class="btn btn btn-primary" value="Submit">Vaciar
+													stock</button></td>
 										</form:form>
 										<form:form action="gestion-sitio/eliminar-ingrediente"
 											modelAttribute="ingredienteEliminar" method="POST">

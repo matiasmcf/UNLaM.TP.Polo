@@ -32,11 +32,12 @@
 		<div class="row">
 			<div class="col-sm-4"></div>
 			<div class="col-sm-4">
-				<div align="center" class="panel panel-primary">
+				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<h3 class="panel-title">Ingrese sus datos</h3>
 					</div>
 					<div class="panel-body">
+					<div align="center" >
 						<form:form type="post" action="redireccionar"
 							modelAttribute="usuario">
 							<br>
@@ -52,9 +53,9 @@
 							<br>
 							<button type="submit" class="btn btn btn-success" value="Submit">Ingresar</button>
 						</form:form>
-						<form:form type="post" action="registrar">
-						<button type="submit" class="btn btn btn-primary" value="Submit">Registrar</button>
-						</form:form>
+						</div>
+						<br>
+						<a align="LEFT" href="registrar">Registrarse como usuario</a>
 					</div>
 				</div>
 			</div>

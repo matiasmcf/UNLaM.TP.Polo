@@ -38,9 +38,8 @@ public class ControladorAplicacion {
 	}
 
 	@RequestMapping(
-			value = "/registrar",
-			method = RequestMethod.POST)
-	public ModelAndView registrarUsuario(@ModelAttribute("usuario") Usuario usuario, RedirectAttributes atributos) {
+			value = "/registrar")
+	public ModelAndView registrarUsuario() {
 		ModelMap modelo = new ModelMap();
 		modelo.put("usuario", new Usuario());
 		return new ModelAndView("registroUsuario", modelo);
