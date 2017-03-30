@@ -15,15 +15,14 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario.TipoUsuario;
  */
 public class SQLiteDatabase {
 
-	private static SQLiteDatabase database;
+	private static SQLiteDatabase database = new SQLiteDatabase();
+
+	private String	databaseDriver	= "jdbc:sqlite:";
+	private String	databaseURL = "src/main/resources/database/database.sqlite";
 
 	public static void setDatabase(SQLiteDatabase database) {
 		SQLiteDatabase.database = database;
 	}
-
-	private String	databaseDriver	= "jdbc:sqlite:";
-	private String	databaseURL;
-
 	public void setDatabaseURL(String databaseURL) {
 		this.databaseURL = databaseURL;
 	}

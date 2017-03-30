@@ -19,7 +19,6 @@ public class ControladorAplicacion {
 	@RequestMapping(
 			path = "/")
 	public ModelAndView irAHome() {
-		System.out.println("INICIANDO");
 		ModelMap modelo = new ModelMap();
 		modelo.put("usuario", new Usuario());
 		return new ModelAndView("home", modelo);
@@ -30,7 +29,7 @@ public class ControladorAplicacion {
 			method = RequestMethod.POST)
 	public RedirectView redireccionar(@ModelAttribute("usuario") Usuario usuario, RedirectAttributes atributos) {
 		if (!SQLiteDatabase.getInstance().verificarDatos(usuario))
-			return new RedirectView("redirect:/");
+			return new RedirectView("/sitio-polo/");
 		atributos.addFlashAttribute("cliente", usuario);
 		if (usuario.getTipo().equals(TipoUsuario.ADMIN))
 			return new RedirectView("gestion-sitio");

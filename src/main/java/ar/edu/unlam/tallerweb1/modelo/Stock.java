@@ -121,7 +121,7 @@ public class Stock {
 	 * @return true en caso de exito, false si el ingrediente no existe en el stock.<br>
 	 */
 	public Boolean comprarIngrediente(Ingrediente ingrediente, Integer unidades) {
-		if (!this.stock.containsKey(ingrediente) || stock.get(ingrediente).equals(0)) {
+		if (!this.stock.containsKey(ingrediente) || stock.get(ingrediente).compareTo(unidades)<0) {
 			return false;
 		}
 		Integer nuevaCantidad = this.stock.get(ingrediente) - unidades;
