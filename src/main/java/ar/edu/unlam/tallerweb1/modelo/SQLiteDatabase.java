@@ -15,14 +15,15 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario.TipoUsuario;
  */
 public class SQLiteDatabase {
 
-	private static SQLiteDatabase database = new SQLiteDatabase();
+	private static SQLiteDatabase	database		= new SQLiteDatabase();
 
-	private String	databaseDriver	= "jdbc:sqlite:";
-	private String	databaseURL = "src/main/resources/database/database.sqlite";
+	private String					databaseDriver	= "jdbc:sqlite:";
+	private String					databaseURL		= "src/main/resources/database/database.sqlite";
 
 	public static void setDatabase(SQLiteDatabase database) {
 		SQLiteDatabase.database = database;
 	}
+
 	public void setDatabaseURL(String databaseURL) {
 		this.databaseURL = databaseURL;
 	}
@@ -89,7 +90,6 @@ public class SQLiteDatabase {
 			conexion.close();
 		}
 		catch (Exception ex) {
-			ex.printStackTrace();
 			System.out.println("verificarDatos() - Error usuario y contraseña");
 		}
 		return estado;
@@ -131,7 +131,6 @@ public class SQLiteDatabase {
 			return true;
 		}
 		catch (SQLException sqle) {
-			sqle.printStackTrace();
 			System.out.println("registrarUsuario() - No se pudo lograr la coneccion con la base de datos");
 			return false;
 		}
@@ -243,6 +242,27 @@ public class SQLiteDatabase {
 		}
 		catch (SQLException sqle) {
 			System.out.println("eliminarIngrediente() - No se pudo lograr la coneccion con la base de datos");
+			return false;
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean eliminarUsuario(Usuario usuario) {
+		try {
+			Class.forName("org.sqlite.JDBC");
+			Connection conexion = DriverManager.getConnection(databaseDriver + databaseURL);
+			Statement st = conexion.createStatement();
+			String query = "Delete from Usuario where nombre='" + usuario.getUsername() + "' and password='" + usuario.getPassword() + "'";
+			st.executeUpdate(query);
+			st.close();
+			conexion.close();
+			return true;
+		}
+		catch (SQLException sqle) {
+			System.out.println("eliminarUsuario() - No se pudo lograr la coneccion con la base de datos");
 			return false;
 		}
 		catch (ClassNotFoundException e) {
