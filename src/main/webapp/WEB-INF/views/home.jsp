@@ -37,25 +37,35 @@
 						<h3 class="panel-title">Ingrese sus datos</h3>
 					</div>
 					<div class="panel-body">
-					<div align="center" >
-						<form:form type="post" action="redireccionar"
-							modelAttribute="usuario">
-							<br>
-							<br>
-							<label>Usuario:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-							<form:input path="username" placeholder="Ingrese su usuario." />
-							<br>
-							<br>
-							<label>Password:&nbsp;</label>
-							<form:password path="password" placeholder="Ingrese su clave." />
-							<form:input path="accion" type="hidden" value="true" />
-							<br>
-							<br>
-							<button type="submit" class="btn btn btn-success" value="Submit">Ingresar</button>
-						</form:form>
+						<div align="center">
+							<form:form type="post" action="redireccionar"
+								commandName="usuario" method="POST">
+								<br>
+								<label>Usuario:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+								<form:input path="username" type="text" placeholder="Ingrese su usuario." required="true" maxlength="15" minlength="4"/>
+								<h6>
+									<p style="color: blue">
+										<form:errors path="username" cssClass="error" />
+									</p>
+								</h6>
+								<label>Password:&nbsp;</label>
+								<form:password path="password" placeholder="Ingrese su clave." required="true" maxlength="15" minlength="4"/>
+								<h6>
+									<p style="color: blue">
+										<form:errors path="password" cssClass="error" />
+									</p>
+								</h6>
+								<h5>
+									<p style="color: blue">
+										<form:errors path="*" cssClass="error" />
+									</p>
+								</h5>
+								<form:input path="accion" type="hidden" value="true" />
+								<br>
+								<button type="submit" class="btn btn btn-success" value="Submit">Ingresar</button>
+							</form:form>
 						</div>
-						<br>
-						<a align="LEFT" href="registrar">Registrarse como usuario</a>
+						<br> <a href="registrar">Registrarse como cliente</a>
 					</div>
 				</div>
 			</div>

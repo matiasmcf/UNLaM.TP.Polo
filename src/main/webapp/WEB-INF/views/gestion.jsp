@@ -52,7 +52,7 @@
 											<td align="RIGHT">Cantidad:</td>
 											<td><form:input type="hidden" path="nombre"
 													value="${ingrediente.nombre}" /></td>
-											<td align="LEFT"><form:input type="number" step="1" style="width: 40px;"
+											<td align="LEFT"><form:input type="number" min="0" step="1" style="width: 40px;"
 													path="cantidad" /></td>
 											<td align="LEFT"><button type="submit"
 													class="btn btn btn-success" value="Submit">Comprar
@@ -107,7 +107,7 @@
 											<td align="RIGHT">Cantidad:</td>
 											<td><form:input type="hidden" path="nombre"
 													value="${ingrediente.nombre}" /></td>
-											<td align="LEFT"><form:input type="number" step="1" style="width: 40px;"
+											<td align="LEFT"><form:input type="number" min="0" step="1" style="width: 40px;"
 													path="cantidad" /></td>
 											<td align="LEFT"><button type="submit"
 													class="btn btn btn-success" value="Submit">Comprar

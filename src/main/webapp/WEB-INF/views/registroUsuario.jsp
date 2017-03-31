@@ -36,11 +36,19 @@
 							<br>
 							<br>
 							<label>Usuario:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-							<form:input path="username" placeholder="Ingrese su usuario." />
+							<form:input path="username" placeholder="Ingrese su usuario." type="text" required="true" maxlength="15" minlength="4" />
 							<br>
-							<br>
+								<h6>
+								<p style="color: blue"><form:errors path="username" cssClass="error" /></p>
+								</h6>
+								<br>
 							<label>Password:&nbsp;</label>
-							<form:password path="password" placeholder="Ingrese su clave." />
+							<form:password path="password" placeholder="Ingrese su clave." required="true" maxlength="15" minlength="4"/>
+							<h6>
+									<p style="color: blue">
+										<form:errors path="password" cssClass="error" />
+									</p>
+								</h6>
 							<form:input path="accion" type="hidden" value="true" />
 							<br>
 							<br>

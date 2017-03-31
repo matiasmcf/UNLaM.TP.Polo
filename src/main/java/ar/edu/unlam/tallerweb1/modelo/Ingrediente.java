@@ -1,16 +1,16 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
 public class Ingrediente {
-	
+
 	public enum TipoIngrediente {
 
 		INGREDIENTE,
 		CONDIMENTO;
 	}
 
-	private String nombre;
-	private Double precio;
-	private TipoIngrediente tipo;
+	private String			nombre;
+	private Double			precio;
+	private TipoIngrediente	tipo;
 
 	public Ingrediente(String nombre, Double precio, TipoIngrediente tipo) {
 		this.nombre = nombre;
@@ -65,12 +65,14 @@ public class Ingrediente {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Ingrediente other = (Ingrediente) obj;
+		Ingrediente other = (Ingrediente)obj;
 		if (nombre == null) {
 			if (other.nombre != null)
 				return false;
-		} else if (!nombre.equals(other.nombre))
-			return false;
+		}
+		else
+			if (!nombre.equals(other.nombre))
+				return false;
 		return true;
 	}
 

@@ -22,6 +22,7 @@
 
 <body role="document">
 	<div class="container theme-showcase" role="main">
+	<br>
 		<div class="row">
 			<div class="col-sm-4"></div>
 			<div class="col-sm-4">
@@ -31,17 +32,16 @@
 					</div>
 					<div class="panel-body">
 						<form:form type="post" action="ingrediente-nuevo/datos"
-							modelAttribute="ingrediente">
-							<br>
+							modelAttribute="ingrediente" method="POST">
 							<br>
 							<label>Nombre:&nbsp;</label>
-							<form:input path="nombre" placeholder="Ingrese nombre ingrediente." />
+							<form:input path="nombre" type="text"
+								placeholder="Ingrese nombre" maxlength="20" minlength="3" required="true"/>
 							<br>
 							<br>
 							<label>Precio:&nbsp;</label>
-							<form:input type="number" step="0.01" path="precio" placeholder="Ingrese precio ingrediente." />
-							<br>
-							<br>
+							<form:input type="number" min="0.01" step="0.01" path="precio"
+								placeholder="Ingrese precio" required="true" />
 							<br>
 							<br>
 							<button type="submit" class="btn btn btn-success" value="Submit">Ingresar</button>

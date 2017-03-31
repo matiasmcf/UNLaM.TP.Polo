@@ -22,10 +22,10 @@
 	<mvc:resources mapping="/js/**" location="/js/" />
 	<mvc:resources mapping="/fonts/**" location="/fonts/" />
 	
+	
 	<bean id="database" class="ar.edu.unlam.tallerweb1.modelo.SQLiteDatabase">
 		<property name="databaseURL"
 			value="E:/Workspace/UNLaM.TP.Polo/src/main/resources/database/database.sqlite" />
 			<property name="database" ref="database"></property>
 	</bean> 
-	
 </beans>

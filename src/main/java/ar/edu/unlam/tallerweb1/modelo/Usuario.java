@@ -1,15 +1,29 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Usuario {
 
 	public enum TipoUsuario {
-		ADMIN, CLIENTE
+		ADMIN,
+		CLIENTE
 	}
 
-	private String username;
-	private String password;
-	private TipoUsuario tipo;
-	private boolean accion; //true=inicio sesion - false=registro
+	@NotNull(
+			message = "asd")
+	@Size(
+			min = 4,
+			message = "El nombre de usuario debe contener de 4 a 10 caracteres")
+	private String		username;
+
+	@NotNull
+	@Size(
+			min = 4,
+			message = "La contraseña debe contener de 4 a 10 caracteres")
+	private String		password;
+	private TipoUsuario	tipo;
+	private boolean		accion;		// true=inicio sesion - false=registro
 
 	public boolean isAccion() {
 		return accion;
@@ -66,7 +80,7 @@ public class Usuario {
 
 	@Override
 	public boolean equals(Object obj) {
-		Usuario other = (Usuario) obj;
+		Usuario other = (Usuario)obj;
 		if (username.equals(other.username))
 			return true;
 		return true;

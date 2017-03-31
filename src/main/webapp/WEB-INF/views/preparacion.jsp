@@ -166,7 +166,7 @@
 				<div class="col-md-6">
 				<form:form action="prepara-tu-sanguche/descuento" modelAttribute="descuento" method="POST" >
 				<label>Codigo de descuento:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-				<form:input path="descuento" placeholder="Ingrese codigo"/>
+				<form:input path="descuento" type="text" maxlength="15" placeholder="Ingrese codigo"/>
 				<button type="submit" class="btn btn btn-primary">Aplicar</button>
 				</form:form>
 				<br>
