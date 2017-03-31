@@ -25,7 +25,7 @@
 		<div class="row">
 			<div class="col-sm-4"></div>
 			<div class="col-sm-4">
-			<br><br>
+				<br> <br>
 				<div align="center" class="panel panel-primary">
 					<div class="panel-heading">
 						<h3 class="panel-title">Ingrese sus datos</h3>
@@ -36,23 +36,44 @@
 							<br>
 							<br>
 							<label>Usuario:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-							<form:input path="username" placeholder="Ingrese su usuario." type="text" required="true" maxlength="15" minlength="4" />
+							<form:input path="username" placeholder="Ingrese su usuario."
+								type="text" required="true" maxlength="15" minlength="4" />
 							<br>
-								<h6>
-								<p style="color: blue"><form:errors path="username" cssClass="error" /></p>
-								</h6>
-								<br>
-							<label>Password:&nbsp;</label>
-							<form:password path="password" placeholder="Ingrese su clave." required="true" maxlength="15" minlength="4"/>
 							<h6>
-									<p style="color: blue">
-										<form:errors path="password" cssClass="error" />
-									</p>
-								</h6>
+								<p style="color: blue">
+									<form:errors path="username" cssClass="error" />
+								</p>
+							</h6>
+							<br>
+							<label>Password:&nbsp;</label>
+							<form:password path="password" placeholder="Ingrese su clave."
+								required="true" maxlength="15" minlength="4" />
+							<h6>
+								<p style="color: blue">
+									<form:errors path="password" cssClass="error" />
+								</p>
+							</h6>
+							<h5>
+								<p style="color: blue">
+									<form:errors path="*" cssClass="error" />
+								</p>
+							</h5>
 							<form:input path="accion" type="hidden" value="true" />
 							<br>
-							<br>
-							<button type="submit" class="btn btn btn-success" value="Submit">Registrar</button>
+
+
+							<table>
+								<tbody>
+									<tr>
+										<td><a href="/sitio-polo" role="button"
+											class="btn btn btn-primary">Cancelar </a>&nbsp;&nbsp;</td>
+										<td><button type="submit" class="btn btn btn-success"
+												value="Submit">Registrar</button></td>
+
+									</tr>
+								</tbody>
+							</table>
+
 						</form:form>
 					</div>
 				</div>

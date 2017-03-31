@@ -30,7 +30,7 @@
 					<div class="panel-heading">
 						<h3 class="panel-title">Ingrese datos del condimento</h3>
 					</div>
-					<div class="panel-body">
+					<div class="panel-body" align="center">
 						<form:form type="post" action="condimento-nuevo/datos"
 							modelAttribute="condimento" method="POST">
 							<br>
@@ -39,12 +39,21 @@
 								maxlength="20" minlength="3" placeholder="Ingrese nombre"  required="true"  />
 							<br>
 							<br>
-							<label>Precio:&nbsp;</label>
+							<label>Precio:&nbsp&nbsp&nbsp;</label>
 							<form:input type="number" min="0.01" step="0.01" path="precio"
 								placeholder="Ingrese precio" required="true" />
 							<br>
 							<br>
-							<button type="submit" class="btn btn btn-success" value="Submit">Ingresar</button>
+							<table>
+								<tbody>
+									<tr>
+										<td><a href="/sitio-polo/gestion-sitio" role="button"
+											class="btn btn btn-primary">Cancelar</a>&nbsp;&nbsp;</td>
+										<td><button type="submit" class="btn btn btn-success" value="Submit">Agregar&nbsp</button></button></td>
+
+									</tr>
+								</tbody>
+							</table>
 						</form:form>
 					</div>
 				</div>

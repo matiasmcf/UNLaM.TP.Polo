@@ -39,12 +39,21 @@
 								placeholder="Ingrese nombre" maxlength="20" minlength="3" required="true"/>
 							<br>
 							<br>
-							<label>Precio:&nbsp;</label>
+							<label>Precio:&nbsp;&nbsp&nbsp</label>
 							<form:input type="number" min="0.01" step="0.01" path="precio"
 								placeholder="Ingrese precio" required="true" />
 							<br>
 							<br>
-							<button type="submit" class="btn btn btn-success" value="Submit">Ingresar</button>
+							<table>
+								<tbody>
+									<tr>
+										<td><a href="/sitio-polo/gestion-sitio" role="button"
+											class="btn btn btn-primary">Cancelar </a>&nbsp;&nbsp;</td>
+										<td><button type="submit" class="btn btn btn-success" value="Submit">Agregar&nbsp</button></button></td>
+
+									</tr>
+								</tbody>
+							</table>
 						</form:form>
 					</div>
 				</div>
