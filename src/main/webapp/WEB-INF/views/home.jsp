@@ -60,7 +60,6 @@
 										<form:errors path="*" cssClass="error" />
 									</p>
 								</h5>
-								<form:input path="accion" type="hidden" value="true" />
 								<br>
 								<button type="submit" class="btn btn btn-success" value="Submit">Ingresar</button>
 							</form:form>

@@ -35,7 +35,7 @@
 							<button type="submit" class="btn btn btn-success" value="Submit">Comprar
 								otro producto</button>
 						</form:form></td>
-					<td><form:form action="/sitio-polo">
+					<td><form:form action="/sitio-polo/prepara-tu-sanguche/salir">
 							&nbsp;&nbsp;<button type="submit" class="btn btn btn-danger" value="Submit">Salir</button>
 						</form:form></td>
 				</tr>

@@ -21,7 +21,7 @@
 					</div>
 					<div class="col-md-1">
 					<br>
-						<form:form action="prepara-tu-sanguche/salir">
+						<form:form action="gestion-sitio/salir">
 							<button type="submit" class="btn btn-sm btn-warning">Salir</button>
 						</form:form>
 					</div>

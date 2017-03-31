@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Ingrediente;
-import ar.edu.unlam.tallerweb1.modelo.ObjetoCompra;
+import ar.edu.unlam.tallerweb1.modelo.Ingrediente.TipoIngrediente;
+import ar.edu.unlam.tallerweb1.modelo.IngredienteCantidad;
 import ar.edu.unlam.tallerweb1.modelo.SQLiteDatabase;
 import ar.edu.unlam.tallerweb1.modelo.Stock;
-import ar.edu.unlam.tallerweb1.modelo.Ingrediente.TipoIngrediente;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.modelo.Usuarios;
 
 @Controller
 @Scope("session")
@@ -40,7 +41,7 @@ public class ControladorGestion {
 		modelo.put("condimentos", condimentos);
 		modelo.put("stock", stock);
 		modelo.put("username", administrador.getUsername());
-		modelo.put("objetoCompra", new ObjetoCompra());
+		modelo.put("objetoCompra", new IngredienteCantidad());
 		modelo.put("ingredienteEliminar", new Ingrediente());
 		return new ModelAndView("gestion", modelo);
 	}
@@ -57,19 +58,26 @@ public class ControladorGestion {
 	@RequestMapping(
 			value = "/gestion-sitio/comprar")
 	public ModelAndView agregarStock(@ModelAttribute(
-			value = "objetoCompra") ObjetoCompra compra) {
+			value = "objetoCompra") IngredienteCantidad compra) {
 		Stock.getInstance().agregarStock(new Ingrediente(compra.getNombre()), compra.getCantidad());
 		SQLiteDatabase.getInstance().actualizarStockIngrediente(Stock.getInstance(), new Ingrediente(compra.getNombre()));
 		return new ModelAndView("redirect:/gestion-sitio");
 	}
-	
+
 	@RequestMapping(
 			value = "/gestion-sitio/vaciar")
 	public ModelAndView vaciarStock(@ModelAttribute(
-			value = "objetoCompra") ObjetoCompra compra) {
+			value = "objetoCompra") IngredienteCantidad compra) {
 		Stock.getInstance().vaciarStock(new Ingrediente(compra.getNombre()));
 		SQLiteDatabase.getInstance().actualizarStockIngrediente(Stock.getInstance(), new Ingrediente(compra.getNombre()));
 		return new ModelAndView("redirect:/gestion-sitio");
+	}
+
+	@RequestMapping(
+			value = "/gestion-sitio/salir")
+	public ModelAndView salir() {
+		Usuarios.getInstance().quitarUsuario(administrador);
+		return new ModelAndView("redirect:/");
 	}
 
 	@RequestMapping(

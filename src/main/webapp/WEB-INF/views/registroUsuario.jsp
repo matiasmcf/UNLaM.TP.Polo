@@ -58,10 +58,7 @@
 									<form:errors path="*" cssClass="error" />
 								</p>
 							</h5>
-							<form:input path="accion" type="hidden" value="true" />
 							<br>
-
-
 							<table>
 								<tbody>
 									<tr>

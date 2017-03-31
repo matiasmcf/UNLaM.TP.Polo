@@ -1,5 +1,8 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
+/**
+ * Representa un ingrediente o un condimento.
+ */
 public class Ingrediente {
 
 	public enum TipoIngrediente {

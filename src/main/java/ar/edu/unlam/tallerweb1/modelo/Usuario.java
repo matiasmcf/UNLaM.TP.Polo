@@ -3,6 +3,9 @@ package ar.edu.unlam.tallerweb1.modelo;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ * Cliente
+ */
 public class Usuario {
 
 	public enum TipoUsuario {
@@ -11,28 +14,47 @@ public class Usuario {
 	}
 
 	@NotNull(
-			message = "asd")
+			message = "El nombre de usuario no puede estar en blanco.")
 	@Size(
 			min = 4,
 			max = 15,
-			message = "El nombre de usuario debe contener de 4 a 10 caracteres")
+			message = "El nombre de usuario debe contener de 4 a 10 caracteres.")
 	private String		username;
 
-	@NotNull
+	@NotNull(
+			message = "La contraseña no puede estar en blanco.")
 	@Size(
 			min = 4,
 			max = 15,
-			message = "La contraseña debe contener de 4 a 10 caracteres")
+			message = "La contraseña debe contener de 4 a 10 caracteres.")
 	private String		password;
 	private TipoUsuario	tipo;
-	private boolean		accion;		// true=inicio sesion - false=registro
 
-	public boolean isAccion() {
-		return accion;
+	public Usuario() {
 	}
 
-	public void setAccion(boolean accion) {
-		this.accion = accion;
+	/**
+	 * Crea un usuario del tipo <code>CLIENTE</code>.
+	 * 
+	 * @param nombre
+	 * @param password
+	 */
+	public Usuario(String nombre, String password) {
+		this.username = nombre;
+		this.password = password;
+		this.tipo = TipoUsuario.CLIENTE;
+	}
+
+	/**
+	 * Crea un usuario especificando el tipo. Se utiliza una vez iniciada sesión, donde ya no interesa la contraseña.
+	 * 
+	 * @param nombre
+	 * @param tipo
+	 */
+	public Usuario(String nombre, TipoUsuario tipo) {
+		this.username = nombre;
+		this.tipo = tipo;
+		this.password = "";
 	}
 
 	public TipoUsuario getTipo() {
@@ -41,21 +63,6 @@ public class Usuario {
 
 	public void setTipo(TipoUsuario tipo) {
 		this.tipo = tipo;
-	}
-
-	public Usuario(String nombre, String password) {
-		this.username = nombre;
-		this.password = password;
-		this.tipo = TipoUsuario.CLIENTE;
-	}
-
-	public Usuario(String nombre, TipoUsuario tipo) {
-		this.username = nombre;
-		this.tipo = tipo;
-		this.password = "";
-	}
-
-	public Usuario() {
 	}
 
 	public String getUsername() {
@@ -85,6 +92,6 @@ public class Usuario {
 		Usuario other = (Usuario)obj;
 		if (username.equals(other.username))
 			return true;
-		return true;
+		return false;
 	}
 }

@@ -31,8 +31,13 @@ public class ControladorAplicacion {
 		if (resultado.hasErrors()) {
 			return "home";
 		}
-		if (!SQLiteDatabase.getInstance().verificarDatos(usuario)) {
+		int res = SQLiteDatabase.getInstance().verificarDatos(usuario);
+		if (res == 1) {
 			resultado.rejectValue(null, null, "Datos de inicio de sesión incorrectos.");
+			return "home";
+		}
+		if (res == 2) {
+			resultado.rejectValue(null, null, "El usuario ya tiene una sesión activa.");
 			return "home";
 		}
 		atributos.addFlashAttribute("cliente", usuario);

@@ -6,11 +6,10 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Maneja un stock de ingredientes, el mismo puede ser asociado a una cantidad.<br>
- * No persiste, es decir, luego de la ejecucion del programa el Stock se inicialza vacio.<br>
- * 
- * @author sismael
- *
+ * Maneja un stock de ingredientes asociando cada <code>Ingrediente</code> a una <code>cantidad</code>.<br>
+ * Al iniciar, carga los datos desde una base de datos. <br>
+ * Ver: {@link SQLiteDatabase}.<br>
+ * Es <i>Singleton</i>, por lo que debe accederse mediante <code>Stock.getInstance()</code>.<br>
  */
 public class Stock {
 
@@ -21,6 +20,9 @@ public class Stock {
 	private Stock() {
 	}
 
+	/**
+	 * Obtiene la instancia.
+	 */
 	public static Stock getInstance() {
 		if (inicializado == false) {
 			SQLiteDatabase.getInstance().cargarIngredientes(instance);
@@ -30,11 +32,7 @@ public class Stock {
 	}
 
 	/**
-	 * Devuelve un listado de los ingredientes del stock, tengan o no stock, es decir, los ingredientes con cantidad 0 son incluidos.<br>
-	 * 
-	 * @param producto
-	 * @param cantidad
-	 * @return
+	 * Devuelve un listado de los ingredientes que tengan stock mayor a 0 (cero).
 	 */
 	public Set<Ingrediente> listarIngredientesDisponibles() {
 		HashSet<Ingrediente> ingredientesDisponibles = new HashSet<Ingrediente>();
@@ -44,12 +42,15 @@ public class Stock {
 		return ingredientesDisponibles;
 	}
 
+	/**
+	 * Devuelve un listado con todos los ingredientes, tengan o no stock disponible.
+	 */
 	public Set<Ingrediente> listarIngredientes() {
 		return stock.keySet();
 	}
 
 	/**
-	 * Devuelve un mapa con los ingredientes y su stock correspondiente, tengan o no stock, es decir, los ingredientes con cantidad 0 son incluidos.<br>
+	 * Devuelve un mapa con los ingredientes y su stock correspondiente, tengan o no stock disponible.<br>
 	 * 
 	 * @param producto
 	 * @param cantidad
@@ -60,7 +61,7 @@ public class Stock {
 	}
 
 	/**
-	 * Permite agregar el ingrediente indicado al stock, con cantidad 0.<br>
+	 * Agrega el ingrediente indicado al stock, con cantidad 0 (cero).<br>
 	 * 
 	 * @param ingrediente
 	 * @param cantidad
@@ -79,7 +80,7 @@ public class Stock {
 	 * 
 	 * @param ingrediente
 	 * @param cantidad
-	 * @return true en caso de exito, false si el ingrediente no existe en el stock.<br>
+	 * @return true en caso de exito, false si el ingrediente no exista en el stock.<br>
 	 */
 	public Boolean agregarStock(Ingrediente ingrediente, Integer cantidad) {
 		if (!this.stock.containsKey(ingrediente)) {
@@ -91,10 +92,9 @@ public class Stock {
 	}
 
 	/**
-	 * Devuelve el stock disponible para el ingrediente pedido. NULL si el ingrediente no existe en el stock<br>
+	 * Retorna el stock disponible para el ingrediente pedido. Retorna <b><code>null</code></b> si el ingrediente no existe en el stock<br>
 	 * 
 	 * @param ingrediente
-	 * @return
 	 */
 	public Integer obtenerStockDisponible(Ingrediente ingrediente) {
 		if (!this.stock.containsKey(ingrediente)) {
@@ -107,21 +107,20 @@ public class Stock {
 	 * Indica si el ingrediente indicado fue incluido en el stock.<br>
 	 * 
 	 * @param ingrediente
-	 * @return
 	 */
 	public Boolean existeIngrediente(Ingrediente ingrediente) {
 		return this.stock.containsKey(ingrediente);
 	}
 
 	/**
-	 * Permite comprar N unidades del ingrediente indicado.<br>
+	 * Permite comprar N unidades del ingrediente indicado. Disminuye el stock del mismo.<br>
 	 * 
 	 * @param ingrediente
 	 * @param unidades
 	 * @return true en caso de exito, false si el ingrediente no existe en el stock.<br>
 	 */
 	public Boolean comprarIngrediente(Ingrediente ingrediente, Integer unidades) {
-		if (!this.stock.containsKey(ingrediente) || stock.get(ingrediente).compareTo(unidades)<0) {
+		if (!this.stock.containsKey(ingrediente) || stock.get(ingrediente).compareTo(unidades) < 0) {
 			return false;
 		}
 		Integer nuevaCantidad = this.stock.get(ingrediente) - unidades;
@@ -142,8 +141,14 @@ public class Stock {
 		this.stock.remove(ingrediente);
 		return true;
 	}
-	
-	public boolean vaciarStock(Ingrediente ingrediente){
+
+	/**
+	 * Pone en cero el stock del ingrediente indicado.
+	 * 
+	 * @param ingrediente
+	 * @return true en caso de exito, false si el ingrediente no existe en el stock.<br>
+	 */
+	public boolean vaciarStock(Ingrediente ingrediente) {
 		if (!this.stock.containsKey(ingrediente)) {
 			return false;
 		}
