@@ -14,12 +14,14 @@ public class Usuario {
 			message = "asd")
 	@Size(
 			min = 4,
+			max = 15,
 			message = "El nombre de usuario debe contener de 4 a 10 caracteres")
 	private String		username;
 
 	@NotNull
 	@Size(
 			min = 4,
+			max = 15,
 			message = "La contraseña debe contener de 4 a 10 caracteres")
 	private String		password;
 	private TipoUsuario	tipo;
