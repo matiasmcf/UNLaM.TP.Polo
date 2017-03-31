@@ -49,14 +49,22 @@ public class ControladorAplicacion {
 	}
 
 	@RequestMapping(
+			value = "/cancelar")
+	public String cancelarRegistro() {
+		return "redirect:/";
+	}
+
+	@RequestMapping(
 			value = "/confirmarRegistro",
 			method = RequestMethod.POST)
 	public String confirmarRegistro(@ModelAttribute("usuario") @Valid Usuario usuario, BindingResult resultado, RedirectAttributes atributos, ModelMap modelo) {
 		if (resultado.hasErrors()) {
 			return "registroUsuario";
 		}
-		if (!SQLiteDatabase.getInstance().registrarUsuario(usuario.getUsername(), usuario.getPassword()))
+		if (!SQLiteDatabase.getInstance().registrarUsuario(usuario.getUsername(), usuario.getPassword())) {
+			resultado.rejectValue(null, null, "No se pudo registrar el usuario: el usuario ya existe.");
 			return "redirect:/confirmarRegistro";
+		}
 		modelo.put("usuario", new Usuario());
 		return "home";
 	}
