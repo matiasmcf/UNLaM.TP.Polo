@@ -47,7 +47,7 @@
 							<table>
 								<tbody>
 									<tr>
-										<td><a href="/sitio-polo/gestion-sitio" role="button"
+										<td><a href="/sanguchetto/gestion-sitio" role="button"
 											class="btn btn btn-primary">Cancelar </a>&nbsp;&nbsp;</td>
 										<td><button type="submit" class="btn btn btn-success" value="Submit">Agregar&nbsp</button></button></td>
 
