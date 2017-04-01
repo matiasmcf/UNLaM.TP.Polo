@@ -68,7 +68,7 @@ public class ControladorAplicacion {
 		}
 		if (!SQLiteDatabase.getInstance().registrarUsuario(usuario.getUsername(), usuario.getPassword())) {
 			resultado.rejectValue(null, null, "No se pudo registrar el usuario: el usuario ya existe.");
-			return "redirect:/confirmarRegistro";
+			return "registroUsuario";
 		}
 		modelo.put("usuario", new Usuario());
 		return "home";
