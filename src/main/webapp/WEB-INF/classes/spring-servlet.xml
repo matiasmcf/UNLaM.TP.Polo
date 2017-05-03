@@ -21,10 +21,5 @@
 	<mvc:resources mapping="/css/**" location="/css/" />
 	<mvc:resources mapping="/js/**" location="/js/" />
 	<mvc:resources mapping="/fonts/**" location="/fonts/" />
-	
-	<bean id="database" class="ar.edu.unlam.tallerweb1.modelo.SQLiteDatabase">
-		<property name="databaseURL"
-			value="/home/nicolas/dropbox/Polo Tecnologico - Capacitacion Java/TP-Sanguchetto/src/main/resources/database/database.sqlite" />
-			<property name="database" ref="database"></property>
-	</bean> 
+
 </beans>

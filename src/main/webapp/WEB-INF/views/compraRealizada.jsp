@@ -31,11 +31,11 @@
 		<table>
 			<tbody>
 				<tr>
-					<td><form:form action="/sanguchetto/prepara-tu-sanguche">
+					<td><form:form action="/prepara-tu-sanguche">
 							<button type="submit" class="btn btn btn-success" value="Submit">Comprar
 								otro producto</button>
 						</form:form></td>
-					<td><form:form action="/sanguchetto/prepara-tu-sanguche/salir">
+					<td><form:form action="/prepara-tu-sanguche/salir">
 							&nbsp;&nbsp;<button type="submit" class="btn btn btn-danger" value="Submit">Salir</button>
 						</form:form></td>
 				</tr>

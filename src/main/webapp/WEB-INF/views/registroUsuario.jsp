@@ -62,7 +62,7 @@
 							<table>
 								<tbody>
 									<tr>
-										<td><a href="/sanguchetto" role="button"
+										<td><a href="/" role="button"
 											class="btn btn btn-primary">Cancelar </a>&nbsp;&nbsp;</td>
 										<td><button type="submit" class="btn btn btn-success"
 												value="Submit">Registrar</button></td>

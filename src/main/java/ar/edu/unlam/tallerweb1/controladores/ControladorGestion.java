@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.edu.unlam.tallerweb1.modelo.Ingrediente;
 import ar.edu.unlam.tallerweb1.modelo.Ingrediente.TipoIngrediente;
 import ar.edu.unlam.tallerweb1.modelo.IngredienteCantidad;
-import ar.edu.unlam.tallerweb1.modelo.SQLiteDatabase;
+import ar.edu.unlam.tallerweb1.modelo.GestionMysqlDB;
 import ar.edu.unlam.tallerweb1.modelo.Stock;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.modelo.Usuarios;
@@ -51,7 +51,7 @@ public class ControladorGestion {
 	public ModelAndView agregarStock(@ModelAttribute(
 			value = "ingredienteEliminar") Ingrediente ingrediente) {
 		Stock.getInstance().eliminarIngrediente(ingrediente);
-		SQLiteDatabase.getInstance().eliminarIngrediente(ingrediente);
+		GestionMysqlDB.getInstance().eliminarIngrediente(ingrediente);
 		return new ModelAndView("redirect:/gestion-sitio");
 	}
 
@@ -60,7 +60,7 @@ public class ControladorGestion {
 	public ModelAndView agregarStock(@ModelAttribute(
 			value = "objetoCompra") IngredienteCantidad compra) {
 		Stock.getInstance().agregarStock(new Ingrediente(compra.getNombre()), compra.getCantidad());
-		SQLiteDatabase.getInstance().actualizarStockIngrediente(Stock.getInstance(), new Ingrediente(compra.getNombre()));
+		GestionMysqlDB.getInstance().actualizarStockIngrediente(Stock.getInstance(), new Ingrediente(compra.getNombre()));
 		return new ModelAndView("redirect:/gestion-sitio");
 	}
 
@@ -69,7 +69,7 @@ public class ControladorGestion {
 	public ModelAndView vaciarStock(@ModelAttribute(
 			value = "objetoCompra") IngredienteCantidad compra) {
 		Stock.getInstance().vaciarStock(new Ingrediente(compra.getNombre()));
-		SQLiteDatabase.getInstance().actualizarStockIngrediente(Stock.getInstance(), new Ingrediente(compra.getNombre()));
+		GestionMysqlDB.getInstance().actualizarStockIngrediente(Stock.getInstance(), new Ingrediente(compra.getNombre()));
 		return new ModelAndView("redirect:/gestion-sitio");
 	}
 
@@ -94,7 +94,7 @@ public class ControladorGestion {
 			value = "condimento") Ingrediente condimento) {
 		condimento.setTipo(TipoIngrediente.CONDIMENTO);
 		Stock.getInstance().agregarIngrediente(condimento);
-		SQLiteDatabase.getInstance().insertarIngrediente(Stock.getInstance(), condimento);
+		GestionMysqlDB.getInstance().insertarIngrediente(Stock.getInstance(), condimento);
 		return new ModelAndView("redirect:/gestion-sitio");
 	}
 
@@ -112,7 +112,7 @@ public class ControladorGestion {
 			value = "ingrediente") Ingrediente ingrediente) {
 		ingrediente.setTipo(TipoIngrediente.INGREDIENTE);
 		Stock.getInstance().agregarIngrediente(ingrediente);
-		SQLiteDatabase.getInstance().insertarIngrediente(Stock.getInstance(), ingrediente);
+		GestionMysqlDB.getInstance().insertarIngrediente(Stock.getInstance(), ingrediente);
 		return new ModelAndView("redirect:/gestion-sitio");
 	}
 

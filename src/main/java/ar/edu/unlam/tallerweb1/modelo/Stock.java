@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * Maneja un stock de ingredientes asociando cada <code>Ingrediente</code> a una <code>cantidad</code>.<br>
  * Al iniciar, carga los datos desde una base de datos. <br>
- * Ver: {@link SQLiteDatabase}.<br>
+ * Ver: {@link GestionMysqlDB}.<br>
  * Es <i>Singleton</i>, por lo que debe accederse mediante <code>Stock.getInstance()</code>.<br>
  */
 public class Stock {
@@ -25,7 +25,7 @@ public class Stock {
 	 */
 	public static Stock getInstance() {
 		if (inicializado == false) {
-			SQLiteDatabase.getInstance().cargarIngredientes(instance);
+			GestionMysqlDB.getInstance().cargarIngredientes(instance);
 			inicializado = true;
 		}
 		return instance;

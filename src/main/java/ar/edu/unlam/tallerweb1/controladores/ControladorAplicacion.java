@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import ar.edu.unlam.tallerweb1.modelo.SQLiteDatabase;
+import ar.edu.unlam.tallerweb1.modelo.GestionMysqlDB;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.modelo.Usuario.TipoUsuario;
 
@@ -31,7 +31,7 @@ public class ControladorAplicacion {
 		if (resultado.hasErrors()) {
 			return "home";
 		}
-		int res = SQLiteDatabase.getInstance().verificarDatos(usuario);
+		int res = GestionMysqlDB.getInstance().verificarDatos(usuario);
 		if (res == 1) {
 			resultado.rejectValue(null, null, "Datos de inicio de sesión incorrectos.");
 			return "home";
@@ -66,7 +66,7 @@ public class ControladorAplicacion {
 		if (resultado.hasErrors()) {
 			return "registroUsuario";
 		}
-		if (!SQLiteDatabase.getInstance().registrarUsuario(usuario.getUsername(), usuario.getPassword())) {
+		if (!GestionMysqlDB.getInstance().registrarUsuario(usuario.getUsername(), usuario.getPassword())) {
 			resultado.rejectValue(null, null, "No se pudo registrar el usuario: el usuario ya existe.");
 			return "registroUsuario";
 		}

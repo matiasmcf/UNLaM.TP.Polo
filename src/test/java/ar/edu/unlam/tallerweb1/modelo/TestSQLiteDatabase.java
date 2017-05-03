@@ -9,11 +9,11 @@ import org.junit.Test;
 
 public class TestSQLiteDatabase {
 
-	private SQLiteDatabase database;
+	private GestionMysqlDB database;
 
 	@Before
 	public void inicializar() {
-		database = SQLiteDatabase.getInstance();
+		database = GestionMysqlDB.getInstance();
 	}
 
 	@After
