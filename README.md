@@ -3,9 +3,23 @@ Trabajo Práctico JavaWeb (Polo tecnológico UNLaM)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -<u>IMPORTANTE</u>:
 <ol>
-• Para el funcionamiento de la base de datos y del proyecto se debe configurar el <b>path absoluto</b> hacia el archivo <i>database.sqlite</i> 
-en el archivo <b>spring-servlet.xml</b>.<br><br>
-• El usuario administrador es "admin" "admin".
+URL Sitio Web
+
+<b>http://sanguchetto.j.layershift.co.uk</b>
+
+Administrador: user=admin, pass=admin
+
+URL Gestion Servidor
+
+<b>https://app.j.layershift.co.uk</b>
+
+Mail de registro: nicolas_meilan@live.com
+
+URL Gestion BD
+
+<b>https://mysql149754-sanguchetto.j.layershift.co.uk</b>
+
+user=root, pass=RLKisi67079
 </ol>
 
 
